@@ -1,93 +1,89 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import useKakaoLoader from '../hooks/useKakaoLoader';
+import { fetchBooths } from '../services/api';
 
-function MapComponent() {
-  const mapContainer = useRef(null);
-  // 스크립트 로딩 상태를 관리하기 위한 state
-  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+const MapPage = () => {
+  const mapStatus = useKakaoLoader();
+  const mapContainerRef = useRef(null);
+  const [booths, setBooths] = useState([]);
 
-  // 1. 카카오맵 SDK 스크립트를 동적으로 로드하는 useEffect
+  // 1. 컴포넌트가 마운트되면 백엔드에서 부스 데이터를 가져옵니다.
   useEffect(() => {
-    const script = document.createElement('script');
-    // .env 파일의 환경 변수를 사용합니다. autoload=false가 중요합니다.
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_API_KEY}&autoload=false&libraries=services`;
-    script.async = true;
-    document.head.appendChild(script);
+    fetchBooths().then(data => {
+      setBooths(data);
+    });
+  }, []); // 최초 1회만 실행
 
-    script.onload = () => {
-      // 스크립트가 로드되면 kakao.maps.load를 사용하여 지도를 초기화할 준비를 합니다.
-      window.kakao.maps.load(() => {
-        setIsScriptLoaded(true); // 스크립트 로딩 완료 상태를 true로 변경
-      });
-    };
-
-    // 컴포넌트 언마운트 시 스크립트 태그를 제거합니다.
-    return () => {
-      // unmount될 때 스크립트가 head에 남아있을 수 있으므로, 해당 스크립트를 찾아서 제거합니다.
-      const scripts = document.head.getElementsByTagName('script');
-      for (let i = 0; i < scripts.length; i++) {
-        if (scripts[i].src.includes('dapi.kakao.com')) {
-          document.head.removeChild(scripts[i]);
-        }
-      }
-    };
-  }, []);
-
-  // 부스 위치 데이터 (예시)
-  const booths = [
-    { id: 1, name: '메인 무대', position: [35.1777, 126.9068] },
-    { id: 2, name: '푸드 트럭 존', position: [35.1771, 126.9069] },
-    { id: 3, name: '체험 부스 A', position: [35.1765, 126.9070] },
-
-  ];
-
-  // 2. 스크립트가 로드된 후에 지도를 생성하는 useEffect
+  // 2. 지도 SDK 로딩과 부스 데이터 로딩이 모두 완료되면 지도를 그립니다.
   useEffect(() => {
-    // 스크립트가 로드되지 않았으면 아무것도 실행하지 않습니다.
-    if (!isScriptLoaded) return;
+    // 두 조건이 모두 충족되지 않으면 실행하지 않습니다.
+    if (mapStatus !== 'loaded' || booths.length === 0 || !mapContainerRef.current) {
+      return;
+    }
 
+    const container = mapContainerRef.current;
     const options = {
-      center: new window.kakao.maps.LatLng(35.171, 126.883),
+      center: new window.kakao.maps.LatLng(35.1759, 126.9090), // 전남대학교 중심 좌표
       level: 4,
     };
-    const map = new window.kakao.maps.Map(mapContainer.current, options);
+    const map = new window.kakao.maps.Map(container, options);
 
-    // 부스 마커와 정보창(팝업)을 지도에 추가합니다.
+    // 3. 받아온 부스 데이터를 기반으로 마커와 정보창을 생성합니다.
     booths.forEach(booth => {
-      const markerPosition = new window.kakao.maps.LatLng(booth.position[0], booth.position[1]);
-      const marker = new window.kakao.maps.Marker({ position: markerPosition });
+      // 백엔드에서 위도, 경도 데이터를 받아와야 합니다.
+      // 예시: booth.latitude, booth.longitude
+      // 지금은 models.py에 위도/경도 필드가 없으므로, 임시 위치를 사용합니다.
+      // 실제 구현 시에는 models.py에 lat, lng 필드를 추가해야 합니다.
+      const tempPosition = new window.kakao.maps.LatLng(35.1777 - (booth.id * 0.0005), 126.9068);
+      
+      const marker = new window.kakao.maps.Marker({ position: tempPosition });
       marker.setMap(map);
-      const iwContent = `<div style="padding:5px; font-weight:bold;">${booth.name}</div>`;
+
+      const iwContent = `<div style="padding:5px; font-size:14px; font-weight:bold; text-align:center;">${booth.name}</div>`;
       const infowindow = new window.kakao.maps.InfoWindow({ content: iwContent, removable: true });
+
       window.kakao.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
       });
     });
 
-    // 사용자 현재 위치를 찾는 로직
+    // 4. 사용자 현재 위치를 표시합니다.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const { latitude, longitude } = pos.coords;
           const userPosition = new window.kakao.maps.LatLng(latitude, longitude);
+          
           const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
           const imageSize = new window.kakao.maps.Size(34, 36);
-          const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
-          const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-          const userMarker = new window.kakao.maps.Marker({ position: userPosition, image: markerImage });
+          const userMarker = new window.kakao.maps.Marker({ position: userPosition, image: new window.kakao.maps.MarkerImage(imageSrc, imageSize) });
+          
           userMarker.setMap(map);
-          map.panTo(userPosition);
+          map.setCenter(userPosition); // 지도의 중심을 사용자 위치로 이동
         },
-        (err) => {
-          console.warn(`ERROR(${err.code}): ${err.message}`);
-        },
+        (err) => console.warn(`Geolocation Error(${err.code}): ${err.message}`),
         { enableHighAccuracy: true }
       );
     }
-  }, [isScriptLoaded]); // isScriptLoaded 상태가 true로 바뀌면 이 useEffect가 실행됩니다.
+
+  }, [mapStatus, booths]); // 지도 SDK 또는 부스 데이터가 준비되면 이 효과가 실행됩니다.
 
   return (
-    <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
+    <div className="relative w-full h-[calc(100vh-60px)]">
+      <div 
+        ref={mapContainerRef} 
+        className="w-full h-full"
+        aria-label="카카오 지도"
+      >
+        {mapStatus !== 'loaded' && (
+          <div className="w-full h-full flex items-center justify-center bg-gray-200">
+            <p className="text-gray-500">지도를 불러오는 중입니다...</p>
+          </div>
+        )}
+      </div>
+      {/* 부스 목록 슬라이드 컴포넌트는 필요 시 여기에 추가할 수 있습니다. */}
+    </div>
   );
-}
+};
 
-export default MapComponent;
+export default MapPage;
