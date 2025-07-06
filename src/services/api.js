@@ -23,3 +23,4 @@ export const fetchBooths = async () => {
     return [];
   }
 };
+
