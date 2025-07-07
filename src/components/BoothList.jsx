@@ -42,7 +42,6 @@ const BoothList = ({ isVisible, onClose }) => {
         ) : booths.length > 0 ? (
           <div className="space-y-3">
             {booths.map((booth) => (
-              // ✅ 수정 버튼이 있던 div를 제거하고 깔끔하게 정리
               <div key={booth.id} className="p-4 border rounded-lg hover:bg-gray-50">
                 <p className="font-bold text-md text-blue-600">{booth.name}</p>
                 <p className="text-sm text-gray-700 mt-1">{booth.description}</p>

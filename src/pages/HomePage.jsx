@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // 1. Link 컴포넌트를 import 합니다.
 
-// 더 이상 navigateTo prop이 필요 없습니다.
+
 function HomePage() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-gray-100">
