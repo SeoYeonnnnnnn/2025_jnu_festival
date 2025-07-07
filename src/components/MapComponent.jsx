@@ -2,58 +2,60 @@ import React, { useRef, useEffect, useState } from 'react';
 import useKakaoLoader from '../hooks/useKakaoLoader';
 import { fetchBooths } from '../services/api';
 
+// ✅ 카테고리별 마커 이미지 URL을 정의합니다.
+const markerImageSrc = {
+  "부스 & 테이블존": "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
+  "콘텐츠 & 포토존": "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_orange.png",
+  "공연 & 관련부스": "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_yellow.png",
+  "안전관리": "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_green.png",
+  "다회용기 반납": "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_blue.png",
+};
+const defaultMarkerImageSrc = "http://t1.daumcdn.net/mapjsapi/images/marker.png"; // 기본 마커
+
 const MapComponent = () => {
   const mapStatus = useKakaoLoader();
   const mapContainerRef = useRef(null);
   const [booths, setBooths] = useState([]);
   const [map, setMap] = useState(null);
 
-  // 1. 백엔드에서 부스 데이터를 가져옵니다.
   useEffect(() => {
-    fetchBooths().then(data => {
-      setBooths(data);
-    });
+    fetchBooths().then(data => setBooths(data));
   }, []);
 
-  // 2. 지도 SDK 로딩이 완료되면, 기본 지도를 먼저 생성합니다.
   useEffect(() => {
-    if (mapStatus !== 'loaded' || !mapContainerRef.current) {
-      return;
-    }
+    if (mapStatus !== 'loaded' || !mapContainerRef.current) return;
 
     const container = mapContainerRef.current;
     const options = {
       center: new window.kakao.maps.LatLng(35.1759, 126.9090),
-      level: 2,
+      level: 3,
     };
     const mapInstance = new window.kakao.maps.Map(container, options);
     setMap(mapInstance);
 
-    // 사용자 현재 위치 표시
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const userPosition = new window.kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
-        const imageSize = new window.kakao.maps.Size(34, 36);
-        const userMarker = new window.kakao.maps.Marker({
-          position: userPosition,
-          image: new window.kakao.maps.MarkerImage(imageSrc, imageSize)
-        });
-        userMarker.setMap(mapInstance);
         mapInstance.setCenter(userPosition);
       });
     }
   }, [mapStatus]);
 
-  // 3. 지도와 부스 데이터가 모두 준비되면, 마커를 추가합니다.
   useEffect(() => {
-    if (!map || booths.length === 0) {
-      return;
-    }
+    if (!map || booths.length === 0) return;
 
     booths.forEach(booth => {
       const position = new window.kakao.maps.LatLng(booth.latitude, booth.longitude);
-      const marker = new window.kakao.maps.Marker({ position });
+      
+      // ✅ 카테고리에 맞는 마커 이미지 소스를 가져옵니다.
+      const imageSrc = markerImageSrc[booth.category] || defaultMarkerImageSrc;
+      const imageSize = new window.kakao.maps.Size(32, 35);
+      const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
+
+      const marker = new window.kakao.maps.Marker({
+        position,
+        image: markerImage // ✅ 생성된 마커 이미지를 설정합니다.
+      });
       marker.setMap(map);
 
       const iwContent = `<div style="padding:5px;font-weight:bold;text-align:center;">${booth.name}</div>`;

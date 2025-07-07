@@ -8,8 +8,8 @@ function MapPage() {
   const [isListVisible, setIsListVisible] = useState(false);
 
   return (
-    <div className="p-4 md:p-8 h-full bg-gray-100">
-      <div className="bg-white p-6 rounded-2xl shadow-lg h-full flex flex-col">
+    <div className="py-4 md:py-8 h-full bg-gray-100">
+      <div className="bg-white p-6 rounded-2xl shadow-lg h-full flex flex-col w-full">
         <header className="mb-4 flex justify-between items-center">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800">축제 지도</h1>
@@ -23,7 +23,7 @@ function MapPage() {
           </Link>
         </header>
         {/* 이 div가 지도와 버튼의 위치 기준점이 됩니다. */}
-        <div className="flex-grow rounded-xl overflow-hidden relative">
+        <div className="flex-grow rounded-xl overflow-hidden relative w-full h-full">
           <MapComponent />
 
           {/* 목록이 숨겨져 있을 때만 '목록 보기' 버튼을 표시합니다. */}
