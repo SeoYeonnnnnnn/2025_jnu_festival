@@ -1,0 +1,24 @@
+/* Tailwind CSS 지시어 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Leaflet 지도가 올바르게 표시되도록 높이를 지정합니다. */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem; /* rounded-xl */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 👇 여기에 추가! 👇 */
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}

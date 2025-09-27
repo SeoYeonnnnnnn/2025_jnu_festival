@@ -1,0 +1,9 @@
+/* src/pages/MapPage.css */
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.horizontal-scroll-container {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}

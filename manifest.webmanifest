@@ -1,0 +1,28 @@
+{
+  "name": "2025학년도 전남대학교 대동제",
+  "short_name": "대동제",
+  "description": "2025학년도 전남대학교 대동제 정보제공 및 지도 PWA",
+  "start_url": "/", 
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "이미지 경로",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "이미지경로",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "이미지경로",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "orientation": "portrait" 
+}
