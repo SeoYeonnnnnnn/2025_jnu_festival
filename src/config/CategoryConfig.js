@@ -5,7 +5,7 @@ export const CATEGORY_CONFIG = {
   BOOTH: { key: "BOOTH", name: "부스" ,color: "#fd8a69",activeColor: "#FFFFFF", icon: "부스.png"},       
   CONTENTS: { key: "CONTENTS", name: "컨텐츠" ,color: "#ffcd4a",activeColor: "#FFFFFF" ,icon: "컨텐츠.png"}, 
   STAGE: { key: "STAGE", name: "무대",color: "#7db249",activeColor: "#FFFFFF", icon: "무대.png"},      
-  SUPPORT: { key: "SUPPORT", name: "테이블존",color: "#1187cf",activeColor: "#FFFFFF",icon: "테이블.png" },   
+  SUPPORT: { key: "TABLE", name: "테이블존",color: "#1187cf",activeColor: "#FFFFFF",icon: "테이블.png" },   
 
 
   // 소분류
@@ -14,6 +14,7 @@ export const CATEGORY_CONFIG = {
   COMPANY_BOOTH: { name: "기업부스", parent: "BOOTH", icon: "빨강핀.png" ,size: [25, 25]},
   INSTITUTIONAL_BOOTH: { name: "기관부스", parent: "BOOTH", icon: "빨강핀.png",size: [25, 25] },
   FOOD_TRUCK: { name: "푸드트럭", parent: "BOOTH", icon: "빨강핀.png",size: [25, 25] },
+  SAFETY_BOOTH: { name: "안전관리부스", parent: "SUPPORT", icon: "빨강핀.png",size: [25, 25] },
 
   // --- 컨텐츠 그룹 ---
   POPUP_ZONE: { name: "굿즈 팝업존", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25],},
@@ -26,12 +27,11 @@ export const CATEGORY_CONFIG = {
   WRISTBAND_BOOTH: { name: "팔찌 배부처", parent: "STAGE", icon: "초록핀.png",size: [25, 25],label: "전대존 입장 방법 보러가기" },
 
   // ---테이블존 ---
-  TABLE_ZONE: { name: "테이블 존", parent: "BOOTH", icon: "파랑핀.png" ,size: [25, 25],},
+  TABLE_ZONE: { name: "테이블 존", parent: "TABLE", icon: "파랑핀.png" ,size: [25, 25],},
 
   // --- 편의시설 ---
   RESTROOM: { name: "화장실", parent: "SUPPORT", icon: "화장실.png",size: [20, 20] },
   SMOKING_AREA: { name: "흡연구역", parent: "SUPPORT", icon: "흡연.png",size: [20, 20] },
   TRASH_CAN: { name: "쓰레기통", parent: "SUPPORT", icon: "쓰레기통.png",size: [20, 20] },
-  SAFETY_BOOTH: { name: "안전관리부스", parent: "SUPPORT", icon: "safety-booth-icon.png",size: [20, 20] },
   AED: { name: "AED", parent: "SUPPORT", icon: "AED.png",size: [26, 26] },
 };

@@ -4,25 +4,13 @@ export const FESTIVAL_DATA = [
   // =========================================================
   // --- 부스 ---
   {
-    id: 1, type: "BOOTH", name: "학생부스", description: "학생부스 목록 보러가기",
+    id: 1, type: "BOOTH", name: "부스존", description: "학생부스 목록 보러가기",
     coordinates: [35.177237, 126.906417],
     mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH",
     displayZoom: [1, 4], // 줌 레벨을 1-4로 통일합니다.
   },
   {
-    id: 2, type: "BOOTH", name: "기업부스", description: "기업부스 목록 보러가기",
-    coordinates: [35.177460, 126.907001],
-    mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH",
-    displayZoom: [1, 4],
-  },
-  {
-    id: 3, type: "BOOTH", name: "기관부스", description: "기관부스 및 안전관리부스 목록 보러가기", // 설명을 통합했습니다.
-    coordinates: [35.176982, 126.906450],
-    mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH",
-    displayZoom: [1, 4],
-  },
-  {
-    id: 4, type: "BOOTH", name: "푸드트럭", description: "푸드트럭 목록 보러가기",
+    id: 4, type: "BOOTH", name: "푸드트럭/부스존", description: "푸드트럭 목록 보러가기",
     coordinates: [35.174886, 126.907864],
     mainCategory: "BOOTH", subCategory: "FOOD_TRUCK",
     displayZoom: [1, 4],
@@ -30,7 +18,7 @@ export const FESTIVAL_DATA = [
   {
     id: 5, type: "BOOTH", name: "테이블존", description: "테이블존 목록 보러가기",
     coordinates: [35.175537, 126.910425],
-    mainCategory: "BOOTH", subCategory: "TABLE_ZONE", // subCategory를 올바르게 수정했습니다.
+    mainCategory: "TABLE", subCategory: "TABLE_ZONE", // subCategory를 올바르게 수정했습니다.
     displayZoom: [1, 4],
   },
   // --- 컨텐츠 ---
@@ -71,32 +59,33 @@ export const FESTIVAL_DATA = [
   // =========================================================
 
 
-  // --- 학생부스 ---
-  { id: 101, type: "BOOTH", name: "제미나이", description: "제미나이",image: "제미나이.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "기타" },
-  { id: 102, type: "BOOTH", name: "그린바이오 팝업", description: "그린바이오 팝업", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "기타" },
-  { id: 103, type: "BOOTH", name: "너는 내 취향저격", description: "소개팅부스", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "소개팅" },
-  { id: 104, type: "BOOTH", name: "ROKAFE", description: "음식", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "음식" },
-  { id: 105, type: "BOOTH", name: "룩개팅&키링", description: "키링, 소개팅", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "소개팅" },
-  { id: 106, type: "BOOTH", name: "몽실몽실", description: "뜨개물품 판매", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "기타" },
-  { id: 107, type: "BOOTH", name: "연애의 첫 단추 소개팅", description: "소개팅", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "소개팅" },
-  { id: 108, type: "BOOTH", name: "셀디와 레스투의 어드벤처 타임", description: "음식", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "음식" },
-  // ▼▼▼▼▼▼▼▼▼▼ 요청하신 학생부스(후문 일대) 데이터 추가 ▼▼▼▼▼▼▼▼▼▼
-  { id: 109, type: "BOOTH", name: "광속구", description: "광속구", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "ALL", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 110, type: "BOOTH", name: "애프터시그널", description: "애프터시그널", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "ALL", location: "후문 일대(용지 앞)", studentBoothType: "소개팅" },
-  { id: 111, type: "BOOTH", name: "붕스크림", description: "붕스크림", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "ALL", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 112, type: "BOOTH", name: "드림포차", description: "드림포차", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 113, type: "BOOTH", name: "검정고무신", description: "검정고무신", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 114, type: "BOOTH", name: "아직 한 발 남았다", description: "아직 한 발 남았다", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "기타" },
-  { id: 115, type: "BOOTH", name: "리조또지만 육회도 하고싶어", description: "리조또지만 육회도 하고싶어", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 116, type: "BOOTH", name: "사탕하나, 사랑하나", description: "사탕하나, 사랑하나", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "소개팅" },
-  { id: 117, type: "BOOTH", name: "화채먹으러오뎅요", description: "화채먹으러오뎅요", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 118, type: "BOOTH", name: "냉면죽여불어", description: "냉면죽여불어", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 119, type: "BOOTH", name: "이웃집 야키토리", description: "이웃집 야키토리", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 120, type: "BOOTH", name: "돼지삶은거.", description: "돼지삶은거.", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 121, type: "BOOTH", name: "전전전셋", description: "전전전셋", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 122, type: "BOOTH", name: "토목 Boom Coming", description: "토목 Boom Coming", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
-  { id: 123, type: "BOOTH", name: "PPP를 이겨라 종이컵 맞추기", description: "PPP를 이겨라 종이컵 맞추기", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "기타" },
-  // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+  // --- 학생부스(봉지) ---
+  { id: 101, type: "BOOTH", name: "제미나이", description: "부스 번호: 19 (홍보)",image: "제미나이.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "기타" },
+  { id: 102, type: "BOOTH", name: "그린바이오 팝업스튜디오", description: "부스 번호: 20 (홍보)",image: "그린바이오 팝업스튜디오.png",  mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "기타" },
+  { id: 103, type: "BOOTH", name: "너는 내 취향저격", description: "부스 번호: 21 (소개팅)",image: "너는 내 취향저격.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "소개팅" },
+  { id: 104, type: "BOOTH", name: "ROKAFE", description: "부스 번호: 22 (음식)", image: "ROKAFE.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "음식" },
+  { id: 105, type: "BOOTH", name: "룩개팅&키링", description: "부스 번호: 23 (키링, 소개팅)",image: "룩개팅&키링.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "소개팅" },
+  { id: 106, type: "BOOTH", name: "몽실몽실", description: "부스 번호: 24 (뜨개물품 판매)",image: "몽실몽실.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "기타" },
+  { id: 107, type: "BOOTH", name: "연애의 첫 단추 소개팅", description: "부스 번호: 25 (소개팅)",image: "연애의 첫 단추 소개팅.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "소개팅" },
+  { id: 108, type: "BOOTH", name: "셀디와 레스투의 어드벤처 타임", description: "부스 번호: 26 (컨텐츠)",image: "셀디와레스투의어드벤처타임.jpg", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "DAY",location: "5.18광장(봉지)",studentBoothType: "음식" },
+
+
+  // --- 학생부스(후문) ---
+  { id: 109, type: "BOOTH", name: "광속구", description: "부스 번호: 1 (컨텐츠)",image: "광속구.jpg", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "ALL", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 110, type: "BOOTH", name: "애프터시그널", description: "부스 번호: 2 (소개팅)",image: "애프터시그널.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "ALL", location: "후문 일대(용지 앞)", studentBoothType: "소개팅" },
+  { id: 111, type: "BOOTH", name: "붕스크림", description: "부스 번호: 3 (음식) ", image: "붕스크림.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "ALL", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 112, type: "BOOTH", name: "드림포차", description: "부스 번호: 5 (음식)", image: "드림포차.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 113, type: "BOOTH", name: "검정고무신", description: "부스 번호: 6 (음식)", image: "검정고무신.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 114, type: "BOOTH", name: "아직 한 발 남았다", description: "부스 번호: 7 (컨텐츠)",image: "아직 한 발 남았다.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "기타" },
+  { id: 115, type: "BOOTH", name: "리조또지만 육회도 하고싶어", description: "부스 번호: 8 (음식)",image: "리조또지만 육회도 하고싶어.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 116, type: "BOOTH", name: "사탕하나, 사랑하나", description: "부스 번호: 9 (소개팅)",image: "사탕하나, 사랑하나.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "소개팅" },
+  { id: 117, type: "BOOTH", name: "화채먹으러오뎅요", description: "부스 번호: 10 (음식)",image: "화채먹으러오뎅요.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 118, type: "BOOTH", name: "냉면죽여불어", description: "부스 번호: 11 (음식)", image: "냉면죽여불어.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 119, type: "BOOTH", name: "이웃집 야키토리", description: "부스 번호: 12 (음식)", image: "이웃집 야키토리.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 120, type: "BOOTH", name: "돼지삶은거.", description: "부스 번호: 13 (음식)",image: "돼지삶은거..png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 121, type: "BOOTH", name: "전전전셋", description: "부스 번호: 14 (음식)", image: "전전전셋.png",mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 122, type: "BOOTH", name: "토목 Boom Coming", description: "부스 번호: 15,16 (음식)",image: "토목 Boom Coming.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "음식" },
+  { id: 123, type: "BOOTH", name: "PPP를 이겨라 종이컵 맞추기", description: "부스 번호: 17 (컨텐츠)",image: "PPP를 이겨라 종이컵 맞추기.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "기타" },
 
   // --- 기업부스 ---
   { id: 130, type: "BOOTH", name: "INC COFFEE", description: "부스 번호: 1, 2", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
@@ -106,23 +95,25 @@ export const FESTIVAL_DATA = [
   { id: 134, type: "BOOTH", name: "PATCHKING 패치킹", description: "부스 번호: 6", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
   { id: 135, type: "BOOTH", name: "(주)하이트진로", description: "부스 번호: 7", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
   { id: 136, type: "BOOTH", name: "기업광주여행플랫폼 광주아트패스", description: "부스 번호: 4", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)" },
-
-  // --- 기관부스 ---
   { id: 140, type: "BOOTH", name: "굿네이버스와 함께하는 지구 구하기 대작전!", description: "부스 번호: 8", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
   { id: 141, type: "BOOTH", name: "스마트인재개발원", description: "부스 번호: 9", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
   { id: 142, type: "BOOTH", name: "국가 AI컴퓨팅센터를 광주로!", description: "부스 번호: 10", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
   { id: 143, type: "BOOTH", name: "반지공방 아뜰리에 호수 광주", description: "부스 번호: 11", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 144, type: "BOOTH", name: "온누리상품권 무료 충전부스", description: "부스 번호: 12", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 145, type: "BOOTH", name: "국민체력100과 함께하는 “도전! Street 체력왕!”", description: "부스 번호: 12, 13", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 146, type: "BOOTH", name: "취업이 막막할 땐? 광주고용복지+센터로 똑똑!", description: "부스 번호: 14", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 147, type: "BOOTH", name: "창업중심대학사업단 홍보부스", description: "부스 번호: 15", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 148, type: "BOOTH", name: "전남대학교 디지털 헬스케어 체험", description: "부스 번호: 16", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 144, type: "BOOTH", name: "온누리상품권 무료 충전부스", description: "부스 번호: 13", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+
+  { id: 194, type: "BOOTH", name: "소개팅 방앗간 with 슈가토끼", description: "부스 번호: 12", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+
+    // --- 기관부스 ---
+  { id: 145, type: "BOOTH", name: "국민체력100과 함께하는 “도전! Street 체력왕!”", description: "부스 번호: 14,15", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 146, type: "BOOTH", name: "취업이 막막할 땐? 광주고용복지+센터로 똑똑!", description: "부스 번호: 16", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 147, type: "BOOTH", name: "창업중심대학사업단 홍보부스", description: "부스 번호: 17", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 148, type: "BOOTH", name: "전남대학교 디지털 헬스케어 체험", description: "부스 번호: 18", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
 
   // --- 컨텐츠 ---
-  { id: 201, type: "BOOTH", name: "굿즈 판매샵", description: "전룡이가 가득 담긴 특별한 굿즈들로 대동제의 기억을 간직해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE", operationTime: "DAY", scheduleText: "10:00~18:00", location: "용봉관 앞" },
-  { id: 202, type: "BOOTH", name: "슈링클스 키링 만들기", description: "나만의 캐릭터를 직접 그리고 세상에 하나뿐인 키링을 만들어보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE", operationTime: "DAY", scheduleText: "10:00~18:00", location: "용봉관 앞" },
+  { id: 201, type: "BOOTH", name: "굿즈 판매샵", description: "전룡이가 가득 담긴 특별한 굿즈들로 대동제의 기억을 간직해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "10:00~18:00", location: "용봉관 앞" },
+  { id: 202, type: "BOOTH", name: "슈링클스 키링 만들기", description: "나만의 캐릭터를 직접 그리고 세상에 하나뿐인 키링을 만들어보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "10:00~18:00", location: "용봉관 앞" },
   { id: 203, type: "BOOTH", name: "유니폼 마킹 및 와펜", description: "와펜과 나만의 마킹의 조합으로  유니폼에 특별한 개성을 더해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE", scheduleText: "10:00~18:00", location: "용봉관 앞" },
-  { id: 204, type: "BOOTH", name: "전룡이 포토존", description: "전룡이에게 반가운 첫인사를 건네주세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE", operationTime: "DAY", scheduleText: "상시 운영", location: "용봉관 앞" },
+  { id: 204, type: "BOOTH", name: "전룡이 포토존", description: "전룡이에게 반가운 첫인사를 건네주세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "상시 운영", location: "용봉관 앞" },
   { id: 205, type: "BOOTH", name: "'새기고, 염원하다'(연등)", description: "연등에 소원을 담아 환하게 빛내보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", scheduleText: "12:00~18:00", location: "용지관 앞" },
   { id: 206, type: "BOOTH", name: "'만나고, 시작하다'(소개팅)", description: "두근거리는 대화 속에서 나와 잘 맞는 인연을 찾아보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", location: "민주마루 앞 잔디밭", scheduleText: "13:00~17:00" },
 
