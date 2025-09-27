@@ -31,7 +31,7 @@ function App() {
       <Route path="/map" element={<MapPage />} />
       <Route path="/booth-list" element={<BoothListPage />} />
       <Route path="/content" element={<ContentSchedulePage />} />
-      <Route path="/timetable" element={<TimetablePage />} />
+      <Route path="/timetable" element={<TimeTablePage />} />
       <Route path="/notice" element={<NoticePage />} />
     </Routes>
   );
