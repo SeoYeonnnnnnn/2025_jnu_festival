@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage';
 import MapPage from './pages/MapPage';
 import BoothListPage from './pages/BoothListPage';
 import ContentSchedulePage from './pages/ContentSchedulePage';
-import TimeTablePage from './pages/TimeTablePage';
+import TimeTablePage from './pages/TimetablePage';
 import NoticePage from './pages/NoticePage';
 import SplashScreen from './components/SplashScreen';
 
@@ -31,7 +31,7 @@ function App() {
       <Route path="/map" element={<MapPage />} />
       <Route path="/booth-list" element={<BoothListPage />} />
       <Route path="/content" element={<ContentSchedulePage />} />
-      <Route path="/timetable" element={<TimeTablePage />} />
+      <Route path="/timetable" element={<TimetablePage />} />
       <Route path="/notice" element={<NoticePage />} />
     </Routes>
   );
