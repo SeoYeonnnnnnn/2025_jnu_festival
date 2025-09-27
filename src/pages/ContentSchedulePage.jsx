@@ -1,8 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
-import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { Link, useNavigate } from "react-router-dom";
 import { contentData } from "../data/contentData";
 
-// 아이콘 SVG 컴포넌트들...
 const ClockIcon = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
@@ -15,11 +14,10 @@ const MapMarkerIcon = (props) => (
 );
 
 function ContentSchedulePage() {
-  const navigate = useNavigate(); // 1. navigate 함수 사용 준비
+  const navigate = useNavigate();
 
-  // 2. 뒤로가기 버튼을 위한 handleGoHome 함수 추가
   const handleGoHome = useCallback(() => {
-    navigate(-1); // 이전 페이지로 이동
+    navigate(-1);
   }, [navigate]);
 
   const groupedContents = useMemo(() => {
@@ -37,35 +35,23 @@ function ContentSchedulePage() {
 
   return (
     <div className="w-full min-h-screen bg-gray-900">
-      {/* 배경 이미지 및 오버레이 */}
       <div
         className="fixed inset-0 bg-cover bg-center opacity-40"
         style={{ backgroundImage: `url(/assets/배경.png)` }}
       />
       <div className="fixed inset-0 bg-black/50" />
       
-      <style>{`
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
-          opacity: 0;
-        }
-      `}</style>
+      <style>{`@keyframes fade-in-up {from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); }}.animate-fade-in-up {animation: fade-in-up 0.6s ease-out forwards;opacity: 0;}`}</style>
       
-      {/* 3. 직접 작성한 헤더 코드로 교체 (흰색 아이콘 및 텍스트로 수정) */}
       <div style={styles.headerContainer}>
         <button type="button" onClick={handleGoHome} style={styles.backButton}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="24" height="24" viewBox="0 0 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 18L9 12L15 6" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
         <h1 style={styles.headerTitle}>콘텐츠</h1>
       </div>
 
-      {/* 메인 콘텐츠 */}
       <main className="relative z-10">
         <div className="max-w-xl mx-auto px-4 pb-20 pt-20">
           <div className="text-center mb-12 animate-fade-in-up">
@@ -117,7 +103,6 @@ function ContentSchedulePage() {
   );
 }
 
-// 4. 헤더를 위한 styles 객체 추가 (투명 배경 및 흰색 텍스트)
 const styles = {
   headerContainer: {
     position: 'sticky',
@@ -129,7 +114,6 @@ const styles = {
     justifyContent: 'center',
     height: '56px',
     zIndex: 20,
-    // 배경은 투명하게 설정
     backgroundColor: 'transparent', 
   },
   backButton: {
@@ -144,7 +128,6 @@ const styles = {
     margin: 0,
     fontSize: '18px',
     fontWeight: 'bold',
-    // 텍스트 색상은 흰색으로 설정
     color: '#FFFFFF', 
   },
 };

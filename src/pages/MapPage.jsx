@@ -1,9 +1,6 @@
-// src/pages/MapPage.jsx
-
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import MapComponent from '../components/MapComponent';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IoIosArrowBack } from "react-icons/io";
+import MapComponent from '../components/MapComponent';
 import BoothList from '../components/BoothList';
 import FilterControls from '../components/FilterControls';
 import './MapPage.css';
@@ -19,45 +16,41 @@ function MapPage() {
   const [selectedMarkerId, setSelectedMarkerId] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState('ALL');
 
+  const handleGoHome = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
   const visibleMarkers = useMemo(() => {
     return allMarkers.filter(marker => {
       const [minZoom, maxZoom] = marker.displayZoom || [0, 14];
       if (currentZoom < minZoom || currentZoom > maxZoom) return false;
-
       const filterConfig = CATEGORY_CONFIG[activeFilter];
-
       if (filterConfig?.parent === 'SUPPORT') {
         return marker.subCategory === activeFilter;
       }
-      
       const matchesFilter = activeFilter === 'ALL' || marker.mainCategory === activeFilter;
       const isSupportItem = marker.mainCategory === 'SUPPORT';
-      
       return matchesFilter || isSupportItem;
     });
   }, [allMarkers, currentZoom, activeFilter]);
 
   const listBooths = useMemo(() => {
     const boothMarkers = allMarkers.filter(marker => marker.type === 'BOOTH');
-
     const filterConfig = CATEGORY_CONFIG[activeFilter];
     if (filterConfig?.parent === 'SUPPORT') {
-        return boothMarkers.filter(marker => marker.subCategory === activeFilter);
+      return boothMarkers.filter(marker => marker.subCategory === activeFilter);
     }
-    
     if (activeFilter === 'ALL') {
-        return boothMarkers.filter(marker => marker.mainCategory !== 'SUPPORT');
+      return boothMarkers.filter(marker => marker.mainCategory !== 'SUPPORT');
     } else {
-        return boothMarkers.filter(marker => marker.mainCategory === activeFilter);
+      return boothMarkers.filter(marker => marker.mainCategory === activeFilter);
     }
   }, [allMarkers, activeFilter]);
-
 
   const handleFilterChange = useCallback((filterKey) => {
     const newFilter = activeFilter === filterKey ? 'ALL' : filterKey;
     setActiveFilter(newFilter);
     setSelectedSubCategory('ALL');
-
     if (newFilter !== 'ALL') {
       setIsSheetOpen(true);
     } else {
@@ -75,10 +68,6 @@ function MapPage() {
       setIsSheetOpen(false);
     }
   }, [isSheetOpen]);
-
-  const handleGoHome = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
 
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
@@ -162,4 +151,3 @@ const styles = {
 };
 
 export default MapPage;
-
