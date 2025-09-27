@@ -1,9 +1,10 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import Header from '../components/Header.jsx';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom'; // 1. useNavigate import
+// import Header from '../components/Header.jsx'; // 2. Header 컴포넌트 import 삭제
 import { FESTIVAL_DATA } from '../data/FestivalData.js';
 import { CATEGORY_CONFIG } from '../config/CategoryConfig.js';
 
-// operationTime 키 값을 사용자에게 보여줄 텍스트로 변환
+// ... (timeDisplay 객체는 그대로 유지)
 const timeDisplay = {
   DAY: '주간 12:00-18:00',
   NIGHT: '야간 18:00-23:00',
@@ -11,12 +12,18 @@ const timeDisplay = {
 };
 
 function BoothListPage() {
-  // --- 상태 관리 ---
+  const navigate = useNavigate(); // 3. navigate 함수 사용 준비
+
+  // 4. 뒤로가기 버튼을 위한 handleGoHome 함수 추가
+  const handleGoHome = useCallback(() => {
+    navigate(-1); // 이전 페이지로 이동
+  }, [navigate]);
+
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('ALL');
   const [activeLocationFilter, setActiveLocationFilter] = useState('전체');
   const [selectedBooth, setSelectedBooth] = useState(null);
 
-  // --- 데이터 가공 (기존 로직 유지) ---
+  // ... (데이터 가공 로직은 모두 그대로 유지)
   const boothCategoryFilters = useMemo(() => {
     const filters = Object.entries(CATEGORY_CONFIG)
       .filter(([, config]) => config.parent === 'BOOTH')
@@ -58,9 +65,7 @@ function BoothListPage() {
     setActiveLocationFilter('전체');
   }, [activeCategoryFilter]);
 
-  // --- 렌더링 함수 ---
-
-  // 부스 아이템 카드 렌더링
+  // --- 렌더링 함수 (그대로 유지) ---
   const renderBoothItem = (booth, index) => (
     <div 
       key={booth.id} 
@@ -84,7 +89,6 @@ function BoothListPage() {
     </div>
   );
   
-  // 상세 정보 뷰 렌더링
   const renderDetailView = () => (
     <div className="px-4 animate-fade-in-up">
       {selectedBooth.image && (
@@ -126,12 +130,19 @@ function BoothListPage() {
         }
       `}</style>
       
-      {/* 상세 뷰에서 뒤로가기 버튼을 누르면 목록으로 돌아오도록 설정 */}
-      <Header 
-        title={selectedBooth ? selectedBooth.name : "부스 안내"} 
-        onBackClick={selectedBooth ? () => setSelectedBooth(null) : undefined}
-      />
-
+      {/* 5. 직접 작성한 헤더 코드로 교체 */}
+      <div style={styles.headerContainer}>
+        <button type="button" onClick={handleGoHome} style={styles.backButton}>
+          <svg width="24" height="24" viewBox="0 0 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        {/* 상세 뷰일 때와 아닐 때 제목을 다르게 표시 */}
+        <h1 style={styles.headerTitle}>
+          {selectedBooth ? selectedBooth.name : "부스 안내"}
+        </h1>
+      </div>
+      
       <div className="relative z-10 max-w-md mx-auto pb-10 pt-20">
         {selectedBooth ? renderDetailView() : (
           <div className="px-4">
@@ -190,5 +201,35 @@ function BoothListPage() {
     </div>
   );
 }
+
+// 6. 헤더를 위한 styles 객체 추가
+const styles = {
+  headerContainer: {
+    position: 'sticky',
+    top: 0,
+    left: 0,
+    right: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '56px',
+    zIndex: 20,
+    backgroundColor: 'transparent',
+  },
+  backButton: {
+    position: 'absolute',
+    left: '16px',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    padding: 0,
+  },
+  headerTitle: {
+    margin: 0,
+    fontSize: '18px',
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+};
 
 export default BoothListPage;

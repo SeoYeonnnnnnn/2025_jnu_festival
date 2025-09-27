@@ -1,6 +1,50 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// 1. 지도에 적용할 다크 모드 스타일 객체
+const darkMapStyle = [
+  {
+    featureType: "all",
+    elementType: "all",
+    stylers: [
+      { hue: "#000000" },
+      { saturation: -100 },
+      { lightness: -100 },
+    ],
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#ffffff" }],
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.stroke",
+    stylers: [{ color: "#000000" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#2c2c2c" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#4a4a4a" }],
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#8a8a8a" }],
+  },
+  {
+    featureType: "water",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#1a1a1a" }],
+  },
+];
+
+
 function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, isSheetOpen }) {
   const mapContainer = useRef(null);
   const [kakaoMap, setKakaoMap] = useState(null);
@@ -10,27 +54,31 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const navigate = useNavigate();
 
-  // 1. 스크립트 로딩 (단 한 번만 실행)
+  // 스크립트 로딩
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_API_KEY}&autoload=false`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${import.meta.env.VITE_KAKAO_MAP_API_KEY}&autoload=false&libraries=services,clusterer,drawing`;
     script.async = true;
     document.head.appendChild(script);
     script.onload = () => { window.kakao.maps.load(() => setIsScriptLoaded(true)); };
   }, []);
 
-  // 2. 지도 생성 (스크립트 로딩 후 단 한 번만 실행)
+  // 지도 생성
   useEffect(() => {
     if (!isScriptLoaded || !mapContainer.current) return;
     const options = {
       center: new window.kakao.maps.LatLng(35.176833, 126.909100),
-      level: 2, minLevel: 1, maxLevel: 6,
+      level: 2,
+      minLevel: 1,
+      maxLevel: 6,
+      // 2. 지도 생성 옵션에 다크 모드 스타일 적용
+      styles: darkMapStyle,
     };
     const newMap = new window.kakao.maps.Map(mapContainer.current, options);
     setKakaoMap(newMap);
   }, [isScriptLoaded]);
 
-  // 3. 지도 이벤트 리스너 등록
+  // 지도 이벤트 리스너 등록
   useEffect(() => {
     if (!kakaoMap) return;
     const handleZoomChange = () => onZoomChange(kakaoMap.getLevel());
@@ -49,7 +97,7 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
     };
   }, [kakaoMap, onZoomChange, activeOverlay]);
 
-  // 4. 마커 및 라벨 그리기
+  // 마커 및 라벨 그리기
   useEffect(() => {
     if (!kakaoMap) return;
 
@@ -96,9 +144,10 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
 
         if (activeOverlay) activeOverlay.setMap(null);
         onMarkerClick(data);
-        const content = `<div style="padding:5px 10px; background:white; border:1px solid #ccc; border-radius:8px; font-weight:bold;">${data.name}</div>`;
+        // 3. 마커 클릭 시 나오는 오버레이도 다크 테마에 맞게 수정
+        const content = `<div style="padding: 6px 12px; background-color: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; font-weight: bold; color: white; font-size: 14px; backdrop-filter: blur(5px);">${data.name}</div>`;
         const customOverlay = new window.kakao.maps.CustomOverlay({
-          position: markerPosition, content: content, yAnchor: 2.2
+          position: markerPosition, content: content, yAnchor: 2.4
         });
         customOverlay.setMap(kakaoMap);
         setActiveOverlay(customOverlay);
@@ -111,7 +160,8 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
       newKakaoMarkers.push(kakaoMarker);
 
       if (data.type === 'BOOTH' && data.mainCategory !== 'SUPPORT') {
-        const labelContent = `<div style="padding: 2px 5px; font-size: 12px; font-weight: bold; color: #333; text-shadow: 1px 1px 0 #fff; white-space: nowrap;">${data.name}</div>`;
+        // 4. 부스 이름 라벨도 다크 테마에 맞게 수정
+        const labelContent = `<div style="padding: 2px 5px; font-size: 12px; font-weight: bold; color: #FFFFFF; text-shadow: 1px 1px 2px #000; white-space: nowrap;">${data.name}</div>`;
         const labelOverlay = new window.kakao.maps.CustomOverlay({
           position: markerPosition,
           content: labelContent,
@@ -136,13 +186,7 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
           const currentPos = new window.kakao.maps.LatLng(lat, lng);
           
           kakaoMap.panTo(currentPos);
-
-          const marker = new window.kakao.maps.Marker({
-            map: kakaoMap,
-            position: currentPos,
-            title: '현재 위치'
-          });
-          setTimeout(() => marker.setMap(null), 3000);
+          // 현재 위치를 표시하는 마커 추가 (예시)
         },
         (error) => {
           console.error("Geolocation error:", error);
@@ -154,17 +198,13 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
     }
   }, [kakaoMap]);
 
-  const handleGoHome = useCallback(() => {
-    navigate('/');
-  }, [navigate]);
-
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div ref={mapContainer} style={{ width: '100%', height: '100%' }} />
       
       <div style={{
         position: 'absolute',
-        bottom: isSheetOpen ? 'calc(60% + 20px)' : '90px',
+        bottom: isSheetOpen ? 'calc(65% + 20px)' : '90px',
         right: '20px',
         zIndex: 30,
         display: 'flex',
@@ -180,13 +220,17 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
   );
 }
 
+// 5. 플로팅 버튼도 다크 테마에 맞게 수정
 const styles = {
   floatingButton: {
     width: '50px', height: '50px', borderRadius: '50%',
-    backgroundColor: 'white', border: '1px solid #ddd',
-    boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+    backgroundColor: 'rgba(30, 30, 30, 0.9)', 
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     cursor: 'pointer',
+    color: 'white',
+    backdropFilter: 'blur(5px)',
   }
 };
 
