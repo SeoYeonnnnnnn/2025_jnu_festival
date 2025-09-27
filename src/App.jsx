@@ -9,6 +9,7 @@ import ContentSchedulePage from './pages/ContentSchedulePage';
 import TimeTablePage from './pages/TimetablePage';
 import NoticePage from './pages/NoticePage';
 import SplashScreen from './components/SplashScreen';
+import ContentDetailPage from './pages/ContentDetailPage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +31,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/map" element={<MapPage />} />
       <Route path="/booth-list" element={<BoothListPage />} />
+      <Route path="/content/:eventId" element={<ContentDetailPage />} /> 
       <Route path="/content" element={<ContentSchedulePage />} />
       <Route path="/timetable" element={<TimeTablePage />} />
       <Route path="/notice" element={<NoticePage />} />

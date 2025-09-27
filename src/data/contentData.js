@@ -12,7 +12,7 @@
 export const contentData = [
   {
     id: "engrave-and-eternal",
-    title: "새기고, 영원하다",
+    title: "새기고, 염원하다",
     summary: "연등 만들기",
     // image: engraveImage,
     date: "9월 29일(월) ~ 30일(화) 12:00 ~ 18:00",

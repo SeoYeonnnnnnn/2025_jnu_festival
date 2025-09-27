@@ -88,7 +88,7 @@ const ImageModal = ({ images, initialIndex, onClose }) => {
 
                 {/* 메인 이미지 */}
                 <img 
-                    src={imagePath} 
+                    src={`/assets/${images[currentIndex]}`} 
                     alt={`Gallery ${currentIndex + 1}`} 
                     className="w-full max-h-[80vh] object-contain rounded-lg"
                     onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.style.display = 'none'; }}
@@ -193,6 +193,9 @@ function BoothList({
     const allInCategory = booths.filter(booth => booth.subCategory === detailViewKey);
     const categoryFiltered = allInCategory.filter(b => !b.description?.includes("목록 보러가기"));
     const parentCategory = categoryConfig[detailViewKey]?.parent;
+    
+    // 푸드트럭은 운영시간 필터를 사용하지 않으므로 바로 반환
+    if (detailViewKey === 'FOOD_TRUCK') return categoryFiltered; 
 
     if (parentCategory !== 'BOOTH') return categoryFiltered;
 
@@ -218,8 +221,8 @@ function BoothList({
   const headerTitle = useMemo(() => {
     if (ultimateDetailBooth) return ultimateDetailBooth.name;
     
-    // ⭐️ 이제 selectedMainCategory는 listActiveFilter이므로, SUPPORT가 될 일이 없습니다.
-    // 기존의 SUPPORT 관련 제목 로직은 제거합니다.
+    // ⭐️ selectedMainCategory(listActiveFilter)가 FOOD_TRUCK의 부모가 아니더라도, 
+    // 실제 listActiveFilter가 FOOD_TRUCK의 부모 카테고리(예: 'BOOTH')의 값을 가질 것입니다.
 
     if (detailViewKey) return categoryConfig[detailViewKey]?.name;
     if (drillDownCategory) return categoryConfig[drillDownCategory]?.name;
@@ -313,9 +316,13 @@ function BoothList({
     // 2. Detail View (개별 부스 목록)
     if (detailViewKey) {
       const parentCategory = categoryConfig[detailViewKey]?.parent;
+        
+        // ⭐️ 주간/야간 필터 렌더링 조건 수정: parentCategory가 'BOOTH'이면서 FOOD_TRUCK이 아닐 때만 렌더링
+      const showTimeFilter = parentCategory === 'BOOTH' && detailViewKey !== 'FOOD_TRUCK';
+
       return (
         <div className="px-1">
-          {parentCategory === 'BOOTH' && <TimeFilter onSelect={setActiveTimeFilter} selectedKey={activeTimeFilter} />}
+          {showTimeFilter && <TimeFilter onSelect={setActiveTimeFilter} selectedKey={activeTimeFilter} />}
           {detailBooths.length > 0 ? (
             <div className="space-y-2">
             {detailBooths.map(booth => (
@@ -341,7 +348,7 @@ function BoothList({
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600">{booth.description || '내용 없음'}</p>
+                  <p className="text-sm text-gray-600">{booth.description || ''}</p>
                 </div>
                 <ChevronIcon />
               </div>
@@ -374,6 +381,7 @@ function BoothList({
             <ChevronIcon />
           </div>
         ))}
+        
       </div>
     );
   };

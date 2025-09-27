@@ -18,7 +18,7 @@ export const FESTIVAL_DATA = [
   {
     id: 5, type: "BOOTH", name: "테이블존", description: "테이블존 목록 보러가기",
     coordinates: [35.175537, 126.910425],
-    mainCategory: "TABLE", subCategory: "TABLE_ZONE", // subCategory를 올바르게 수정했습니다.
+    mainCategory: "TABLE", subCategory: "TABLE_ZONE", 
     displayZoom: [1, 4],
   },
   // --- 컨텐츠 ---
@@ -88,26 +88,42 @@ export const FESTIVAL_DATA = [
   { id: 123, type: "BOOTH", name: "PPP를 이겨라 종이컵 맞추기", description: "부스 번호: 17 (컨텐츠)",image: "PPP를 이겨라 종이컵 맞추기.png", mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)", studentBoothType: "기타" },
 
   // --- 기업부스 ---
-  { id: 130, type: "BOOTH", name: "INC COFFEE", description: "부스 번호: 1, 2", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 131, type: "BOOTH", name: "프로세카 개강 응원 축제", description: "부스 번호: 3, 4 (1일차)", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 132, type: "BOOTH", name: "<레디, 갓생, 고!> 커피차", description: "부스 번호: 3, 4 (2일차)", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 133, type: "BOOTH", name: "퍼스널컬러 / 립&치크 만들기", description: "부스 번호: 5", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 134, type: "BOOTH", name: "PATCHKING 패치킹", description: "부스 번호: 6", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 135, type: "BOOTH", name: "(주)하이트진로", description: "부스 번호: 7", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 136, type: "BOOTH", name: "기업광주여행플랫폼 광주아트패스", description: "부스 번호: 4", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)" },
-  { id: 140, type: "BOOTH", name: "굿네이버스와 함께하는 지구 구하기 대작전!", description: "부스 번호: 8", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 141, type: "BOOTH", name: "스마트인재개발원", description: "부스 번호: 9", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 142, type: "BOOTH", name: "국가 AI컴퓨팅센터를 광주로!", description: "부스 번호: 10", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 143, type: "BOOTH", name: "반지공방 아뜰리에 호수 광주", description: "부스 번호: 11", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 144, type: "BOOTH", name: "온누리상품권 무료 충전부스", description: "부스 번호: 13", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 130, type: "BOOTH", name: "INC COFFEE", description: "부스 번호: 1, 2",image:"INC COFFEE.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 131, type: "BOOTH", name: "프로세카 개강 응원 축제", description: "부스 번호: 3, 4 (1일차)",image:"프로세카 개강 응원 축제.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 132, type: "BOOTH", name: "<레디, 갓생, 고!> 커피차", description: "부스 번호: 3, 4 (2일차)",image:"레디, 갓생, 고! 커피차.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 133, type: "BOOTH", name: "퍼스널컬러 / 립&치크 만들기", description: "부스 번호: 5",image:"퍼스널컬러 립&치크 만들기.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 134, type: "BOOTH", name: "PATCHKING 패치킹", description: "부스 번호: 6",image:"PATCHKING 패치킹.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 135, type: "BOOTH", name: "(주)하이트진로", description: "부스 번호: 7",image:"(주)하이트진로.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 136, type: "BOOTH", name: "기업광주여행플랫폼 광주아트패스", description: "부스 번호: 4",image:"기업광주여행플랫폼 광주아트패스.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "NIGHT", location: "후문 일대(용지 앞)" },
+  { id: 140, type: "BOOTH", name: "굿네이버스와 함께하는 지구 구하기 대작전!", description: "부스 번호: 8", image:"굿네이버스와 함께하는 지구 구하기 대작전!.png",mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 141, type: "BOOTH", name: "스마트인재개발원", description: "부스 번호: 9",image:"스마트인재개발원.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 142, type: "BOOTH", name: "국가 AI컴퓨팅센터를 광주로!", description: "부스 번호: 10",image:"국가 AI컴퓨팅센터를 광주로!.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 143, type: "BOOTH", name: "반지공방 아뜰리에 호수 광주", description: "부스 번호: 11",image:"반지공방 아뜰리에 호수 광주.png", mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 144, type: "BOOTH", name: "온누리상품권 무료 충전부스", description: "부스 번호: 13", image:"온누리상품권 무료 충전부스.png",mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
 
-  { id: 194, type: "BOOTH", name: "소개팅 방앗간 with 슈가토끼", description: "부스 번호: 12", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 194, type: "BOOTH", name: "소개팅 방앗간 with 슈가토끼", description: "부스 번호: 12",images:["슈토1.png","슈토2.png","슈토3.png","슈토4.png","슈토5.png","슈토6.png",], mainCategory: "BOOTH", subCategory: "COMPANY_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
 
     // --- 기관부스 ---
-  { id: 145, type: "BOOTH", name: "국민체력100과 함께하는 “도전! Street 체력왕!”", description: "부스 번호: 14,15", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 146, type: "BOOTH", name: "취업이 막막할 땐? 광주고용복지+센터로 똑똑!", description: "부스 번호: 16", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 147, type: "BOOTH", name: "창업중심대학사업단 홍보부스", description: "부스 번호: 17", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
-  { id: 148, type: "BOOTH", name: "전남대학교 디지털 헬스케어 체험", description: "부스 번호: 18", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 145, type: "BOOTH", name: "국민체력100과 함께하는 “도전! Street 체력왕!“", image:"국민체력100과 함께하는 “도전! Street 체력왕!“.png",description: "부스 번호: 14,15", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 146, type: "BOOTH", name: "취업이 막막할 땐? 광주고용복지+센터로 똑똑!",image:"취업이 막막할 땐 광주고용복지+센터로 똑똑!.png", description: "부스 번호: 16", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 147, type: "BOOTH", name: "창업중심대학사업단 홍보부스",image:"창업중심대학사업단 홍보부스.png", description: "부스 번호: 17", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+  { id: 148, type: "BOOTH", name: "전남대학교 디지털 헬스케어 체험",image:"전남대학교 디지털 헬스케어 체험.png", description: "부스 번호: 18", mainCategory: "BOOTH", subCategory: "INSTITUTIONAL_BOOTH", operationTime: "DAY", location: "5.18광장(봉지)" },
+
+  // --- 푸드트럭 ---
+  { id: 149, type: "BOOTH", name: "꽃마차", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "꽃마차.png" },
+  { id: 150, type: "BOOTH", name: "달콤마차", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "달콤마차.png" },
+  { id: 151, type: "BOOTH", name: "동스푸드", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "동스푸드.png" },
+  { id: 152, type: "BOOTH", name: "런투유키친", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "런투유키친.png" },
+  { id: 153, type: "BOOTH", name: "마스터(MASTER)", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "마스터.png" },
+  { id: 154, type: "BOOTH", name: "만월", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "만월.png" },
+  { id: 155, type: "BOOTH", name: "불초밥", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "불초밥.png" },
+  { id: 156, type: "BOOTH", name: "비스트로안", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "비스트로안.png" },
+  { id: 157, type: "BOOTH", name: "영키친", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "영키친.png" },
+  { id: 158, type: "BOOTH", name: "크림왕새우&깐쇼왕새우", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "크림왕새우&깐쇼왕새우.png" },
+  { id: 159, type: "BOOTH", name: "퍼펙트럭", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "퍼펙트럭.png" },
+  { id: 160, type: "BOOTH", name: "플라이트럭", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "플라이트럭.png" },
+  { id: 161, type: "BOOTH", name: "황제곱창", mainCategory: "BOOTH", subCategory: "FOOD_TRUCK", scheduleText: "11:00~22:30", location: "후문 일대(용지 앞)", image: "황제곱창.png" },
+
 
   // --- 컨텐츠 ---
   { id: 201, type: "BOOTH", name: "굿즈 판매샵", description: "전룡이가 가득 담긴 특별한 굿즈들로 대동제의 기억을 간직해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "10:00~18:00", location: "용봉관 앞" },
