@@ -1,236 +1,208 @@
-import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FESTIVAL_DATA } from '../data/FestivalData.js';
-import { CATEGORY_CONFIG } from '../config/CategoryConfig.js';
+import React, { useState, useEffect, useMemo } from 'react';
 
-// ... (timeDisplay 객체는 그대로 유지)
+// 운영 시간 필터 옵션
+const timeFilters = {
+  TOTAL: '전체',
+  DAY: '주간',
+  NIGHT: '야간',
+  ALL: '주야간',
+};
+
+// 운영 시간 표시 텍스트
 const timeDisplay = {
   DAY: '주간 12:00-18:00',
   NIGHT: '야간 18:00-23:00',
   ALL: '주야간 12:00-23:00',
 };
 
-function BoothListPage() {
-  const navigate = useNavigate();
+// 재사용 가능한 시간 필터 컴포넌트
+const TimeFilter = ({ onSelect, selectedKey }) => {
+  return (
+    <div className="flex w-full gap-2 py-3">
+      {Object.entries(timeFilters).map(([key, name]) => (
+        <button
+          key={key}
+          type="button"
+          onClick={() => onSelect(key)}
+          className={`flex-1 px-2 py-2 text-xs font-bold rounded-lg transition-all duration-200 ${
+            selectedKey === key 
+            ? 'bg-blue-600 text-white shadow-lg' 
+            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          {name}
+        </button>
+      ))}
+    </div>
+  );
+};
 
-  const handleGoHome = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
+// Chevron Right 아이콘
+const ChevronIcon = () => (
+  <svg className="w-6 h-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+  </svg>
+);
 
-  const [activeCategoryFilter, setActiveCategoryFilter] = useState('ALL');
-  const [activeLocationFilter, setActiveLocationFilter] = useState('전체');
-  const [selectedBooth, setSelectedBooth] = useState(null);
 
-  // ... (데이터 가공 로직은 모두 그대로 유지)
-  const boothCategoryFilters = useMemo(() => {
-    const filters = Object.entries(CATEGORY_CONFIG)
-      .filter(([, config]) => config.parent === 'BOOTH')
-      .map(([key, config]) => ({ key, name: config.name }));
-    return [{ key: 'ALL', name: '전체' }, ...filters];
-  }, []);
-
-  const locationFilterOptions = ['전체', '주간(5.18광장)', '야간(후문일대)'];
-
-  const displayedBooths = useMemo(() => {
-    const actualBooths = FESTIVAL_DATA.filter(
-      booth => booth.mainCategory === 'BOOTH' && !booth.description?.includes("목록 보러가기")
-    );
-    const categoryFilteredBooths = activeCategoryFilter !== 'ALL'
-      ? actualBooths.filter(booth => booth.subCategory === activeCategoryFilter)
-      : actualBooths;
-
-    if (activeCategoryFilter === 'STUDENT_BOOTH') {
-      if (activeLocationFilter === '전체') return categoryFilteredBooths;
-      if (activeLocationFilter === '주간(5.18광장)') return categoryFilteredBooths.filter(booth => booth.location === '5.18광장(봉지)');
-      if (activeLocationFilter === '야간(후문일대)') return categoryFilteredBooths.filter(booth => booth.location === '후문 일대(용지 앞)');
-    }
-    return categoryFilteredBooths;
-  }, [activeCategoryFilter, activeLocationFilter]);
-  
-  const studentBoothGroups = useMemo(() => {
-    if (activeCategoryFilter !== 'STUDENT_BOOTH') return [];
-    const groups = displayedBooths.reduce((acc, booth) => {
-      const type = booth.studentBoothType || '기타';
-      if (!acc[type]) acc[type] = [];
-      acc[type].push(booth);
-      return acc;
-    }, {});
-    const groupOrder = ['음식', '소개팅', '기타'];
-    return groupOrder.map(groupName => ({ title: groupName, booths: groups[groupName] || [] })).filter(group => group.booths.length > 0);
-  }, [displayedBooths, activeCategoryFilter]);
+function BoothList({
+  isVisible, onClose, onOpen, booths,
+  categoryConfig, selectedMainCategory,
+}) {
+  const [detailViewKey, setDetailViewKey] = useState(null);
+  const [drillDownCategory, setDrillDownCategory] = useState(null);
+  const [activeTimeFilter, setActiveTimeFilter] = useState('TOTAL');
 
   useEffect(() => {
-    setActiveLocationFilter('전체');
-  }, [activeCategoryFilter]);
-
-  // --- 렌더링 함수 (그대로 유지) ---
-  const renderBoothItem = (booth, index) => (
-    <div 
-      key={booth.id} 
-      onClick={() => setSelectedBooth(booth)} 
-      className="bg-white/5 backdrop-blur-xl rounded-2xl p-4 flex items-center gap-4 cursor-pointer hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
-      style={{ animationDelay: `${index * 50}ms` }}
-    >
-      <div className="flex-1 min-w-0">
-        <h3 className="text-md font-bold text-white truncate">{booth.name}</h3>
-        <p className="mt-1 text-sm text-white/60 truncate">{booth.description}</p>
-        <div className="flex items-center gap-4 mt-2 text-xs text-white/50">
-          {booth.operationTime && (
-            <span>🕒 {timeDisplay[booth.operationTime] || booth.operationTime}</span>
-          )}
-          {booth.location && <span>📍 {booth.location}</span>}
-        </div>
-      </div>
-      {booth.image && (
-        <img src={`/assets/${booth.image}`} alt={booth.name} className="w-20 h-20 rounded-lg object-cover bg-gray-700 flex-shrink-0" onError={(e) => { e.target.style.display = 'none'; }}/>
-      )}
-    </div>
-  );
+    setDetailViewKey(null);
+    setDrillDownCategory(null);
+    setActiveTimeFilter('TOTAL');
+  }, [selectedMainCategory]);
   
-  const renderDetailView = () => (
-    <div className="px-4 animate-fade-in-up">
-       <div className="pt-20" /> {/* ✅ 상세 뷰에서도 헤더 공간 확보 */}
-      {selectedBooth.image && (
-        <img src={`/assets/${selectedBooth.image}`} alt={selectedBooth.name} className="w-full h-auto max-h-80 rounded-xl object-cover bg-gray-700 mb-6 shadow-lg" />
-      )}
-      <h2 className="text-3xl font-extrabold text-white">{selectedBooth.name}</h2>
-      <p className="text-white/70 mt-2 mb-4">{selectedBooth.description}</p>
-       <div className="border-t border-white/20 pt-4 flex flex-col gap-2 text-sm text-white/80">
-        <div className="flex items-center">
-          <span className="mr-3">🕒</span>
-          <span>{timeDisplay[selectedBooth.operationTime] || selectedBooth.operationTime}</span>
+  useEffect(() => {
+    if (detailViewKey) {
+      setActiveTimeFilter('TOTAL');
+    }
+  }, [detailViewKey]);
+
+  const handleBack = () => {
+    if (detailViewKey) setDetailViewKey(null);
+    else if (drillDownCategory) setDrillDownCategory(null);
+  };
+
+  const summaryItems = useMemo(() => {
+    if (!booths) return [];
+    if (selectedMainCategory === 'ALL' && !drillDownCategory) {
+      return Object.values(categoryConfig).filter(config => !config.parent);
+    }
+    const targetMainCategory = drillDownCategory || selectedMainCategory;
+    const relevantBooths = booths.filter(b => b.mainCategory === targetMainCategory);
+    const groups = relevantBooths.reduce((acc, booth) => {
+      if (!booth.subCategory) return acc;
+      if (!acc[booth.subCategory]) {
+        acc[booth.subCategory] = {
+          key: booth.subCategory,
+          name: categoryConfig[booth.subCategory]?.name || booth.subCategory,
+        };
+      }
+      return acc;
+    }, {});
+    return Object.values(groups);
+  }, [booths, categoryConfig, selectedMainCategory, drillDownCategory]);
+
+  const detailBooths = useMemo(() => {
+    if (!detailViewKey) return [];
+    const allInCategory = booths.filter(booth => booth.subCategory === detailViewKey);
+    const categoryFiltered = allInCategory.filter(b => !b.description?.includes("목록 보러가기"));
+    const parentCategory = categoryConfig[detailViewKey]?.parent;
+
+    if (parentCategory !== 'BOOTH') return categoryFiltered;
+
+    switch (activeTimeFilter) {
+      case 'DAY': return categoryFiltered.filter(b => b.operationTime === 'DAY' || b.operationTime === 'ALL');
+      case 'NIGHT': return categoryFiltered.filter(b => b.operationTime === 'NIGHT' || b.operationTime === 'ALL');
+      case 'ALL': return categoryFiltered.filter(b => b.operationTime === 'ALL');
+      default: return categoryFiltered;
+    }
+  }, [booths, detailViewKey, activeTimeFilter, categoryConfig]);
+
+  const renderContent = () => {
+    if (detailViewKey) {
+      const parentCategory = categoryConfig[detailViewKey]?.parent;
+      return (
+        <div className="px-1">
+          {parentCategory === 'BOOTH' && <TimeFilter onSelect={setActiveTimeFilter} selectedKey={activeTimeFilter} />}
+          {detailBooths.length > 0 ? (
+            <div className="space-y-2">
+            {detailBooths.map(booth => (
+              <div key={booth.id} className="bg-white rounded-lg p-4 shadow">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <h3 className="font-bold text-gray-800 text-md">{booth.name}</h3>
+                  {booth.mainCategory === 'BOOTH' && booth.operationTime && (
+                    <span className={`px-2 py-0.5 text-[11px] font-bold rounded-full text-white ${
+                      booth.operationTime === 'DAY' ? 'bg-blue-500' :
+                      booth.operationTime === 'NIGHT' ? 'bg-purple-600' : 'bg-green-600'
+                    }`}>
+                      {timeDisplay[booth.operationTime].split(' ')[0]}
+                    </span>
+                  )}
+                  {booth.mainCategory !== 'BOOTH' && booth.scheduleText && (
+                    <span className="px-2 py-0.5 text-[11px] font-bold rounded-full text-white bg-gray-500">
+                      {booth.scheduleText}
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-gray-600">{booth.description || '내용 없음'}</p>
+              </div>
+            ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500 pt-16">선택한 조건에 맞는 부스가 없습니다.</p>
+          )}
         </div>
-        <div className="flex items-center">
-          <span className="mr-3">📍</span>
-          <span>{selectedBooth.location}</span>
-        </div>
+      );
+    }
+
+    if (summaryItems.length === 0) {
+      return <p className="text-center text-gray-500 pt-16">표시할 부스가 없습니다.</p>;
+    }
+
+    return (
+      <div className="space-y-2 px-1">
+        {summaryItems.map(item => (
+          <div 
+            key={item.key} 
+            onClick={() => {
+              if (selectedMainCategory === 'ALL' && !drillDownCategory) setDrillDownCategory(item.key);
+              else setDetailViewKey(item.key);
+            }} 
+            className="bg-white p-4 rounded-lg shadow cursor-pointer flex justify-between items-center hover:bg-gray-50 active:scale-[0.98] transition-all"
+          >
+            <h3 className="font-bold text-gray-800 text-md">{item.name}</h3>
+            <ChevronIcon />
+          </div>
+        ))}
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
-    <div className="w-full min-h-screen bg-gray-900">
+    <div
+      className={`fixed bottom-0 left-0 right-0 h-[65%] max-h-[600px] bg-gray-50 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-in-out z-20 ${
+        isVisible ? 'translate-y-0' : 'translate-y-[calc(100%-70px)]'
+      }`}
+      onClick={() => !isVisible && onOpen()}
+    >
       <div
-        className="fixed inset-0 bg-cover bg-center opacity-40"
-        style={{ backgroundImage: `url(/assets/배경.png)` }}
-      />
-      <div className="fixed inset-0 bg-black/50" />
-      
-      <style>{`
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.5s ease-out forwards;
-          opacity: 0;
-        }
-      `}</style>
-      
-      <div style={styles.headerContainer}>
-        <button type="button" onClick={selectedBooth ? () => setSelectedBooth(null) : handleGoHome} style={styles.backButton}>
-          <svg width="24" height="24" viewBox="0 0 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-        <h1 style={styles.headerTitle}>
-          {selectedBooth ? selectedBooth.name : "부스 안내"}
-        </h1>
-      </div>
-      
-      {/* ✅ pt-20을 제거 */}
-      <div className="relative z-10 max-w-md mx-auto pb-10">
-        {selectedBooth ? renderDetailView() : (
-          <div className="px-4">
-            {/* ✅ 헤더 높이(56px)만큼의 공간을 만들어주는 div 추가 */}
-            <div className="h-[56px]" />
-            
-            {/* 카테고리 필터 */}
-            <div className="horizontal-scroll-container bg-black/20 rounded-full p-1 my-4 sticky top-[64px] z-20 backdrop-blur-sm" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
-              {boothCategoryFilters.map(filter => (
-                <button
-                  key={filter.key}
-                  type="button"
-                  onClick={() => setActiveCategoryFilter(filter.key)}
-                  className={`inline-block px-4 py-2 text-sm font-bold rounded-full transition-colors duration-300 ${activeCategoryFilter === filter.key ? 'bg-green-500/80 text-white shadow-md' : 'bg-transparent text-white/70'}`}
-                >
-                  {filter.name}
-                </button>
-              ))}
-            </div>
-
-            {/* 학생부스 장소 필터 */}
-            {activeCategoryFilter === 'STUDENT_BOOTH' && (
-              <div className="flex justify-center bg-black/20 rounded-full p-1 mb-6 sticky top-[124px] z-10 backdrop-blur-sm">
-                {locationFilterOptions.map(filter => (
-                  <button
-                    key={filter}
-                    type="button"
-                    onClick={() => setActiveLocationFilter(filter)}
-                    className={`w-full py-2 text-xs font-bold rounded-full transition-colors duration-300 ${activeLocationFilter === filter ? 'bg-white/80 text-gray-900 shadow-md' : 'bg-transparent text-white/70'}`}
-                  >
-                    {filter}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 gap-4">
-              {displayedBooths.length > 0 ? (
-                activeCategoryFilter === 'STUDENT_BOOTH' ? (
-                  studentBoothGroups.map((group, groupIndex) => (
-                    <div key={group.title} className="animate-fade-in-up" style={{ animationDelay: `${groupIndex * 100}ms` }}>
-                      <h2 className="text-xl font-bold text-green-400 my-4">{group.title}</h2>
-                      <div className="grid grid-cols-1 gap-4">
-                        {group.booths.map((booth, boothIndex) => renderBoothItem(booth, boothIndex))}
-                      </div>
-                    </div>
-                  ))
-                ) : ( displayedBooths.map((booth, boothIndex) => renderBoothItem(booth, boothIndex)) )
-              ) : ( 
-                <p className="text-center text-white/50 py-16 animate-fade-in-up">
-                  해당 카테고리의 부스가 없습니다.
-                </p> 
-              )}
-            </div>
-          </div>
+        onClick={(e) => { if (isVisible && !detailViewKey && !drillDownCategory) { e.stopPropagation(); onClose(); } }}
+        className={`w-full h-[70px] p-3 box-border flex items-center justify-center relative ${
+          (detailViewKey || drillDownCategory) ? '' : 'cursor-grab active:cursor-grabbing'
+        }`}
+      >
+        {(detailViewKey || drillDownCategory) && (
+          // ✅ 수정된 뒤로가기 버튼 SVG와 스타일
+          <button type="button" onClick={handleBack} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-none border-none text-gray-700 cursor-pointer flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         )}
+        <div className={`w-10 h-1 bg-gray-300 rounded-full absolute top-3 left-1/2 -translate-x-1/2 ${
+          (detailViewKey || drillDownCategory) ? 'hidden' : 'block'
+        }`} />
+        <p className="m-0 font-extrabold text-lg text-gray-700 pt-3">
+          {detailViewKey
+            ? categoryConfig[detailViewKey]?.name
+            : drillDownCategory
+            ? categoryConfig[drillDownCategory]?.name
+            : categoryConfig[selectedMainCategory]?.name || "전체 목록"}
+        </p>
+      </div>
+      <div className="overflow-y-auto h-[calc(100%-70px)] px-4 pb-4">
+        {renderContent()}
       </div>
     </div>
   );
 }
 
-// ... (styles 객체는 그대로 유지)
-const styles = {
-  headerContainer: {
-    position: 'fixed', // 'sticky' 대신 'fixed'로 변경하여 항상 떠 있도록
-    top: 0,
-    left: 0,
-    right: 0,
-    maxWidth: '768px', // max-w-md와 비슷한 효과를 위해
-    margin: '0 auto',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '56px',
-    zIndex: 30, // 필터보다 위에 있도록 z-index 조정
-    backgroundColor: 'transparent',
-  },
-  backButton: {
-    position: 'absolute',
-    left: '16px',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: 0,
-  },
-  headerTitle: {
-    margin: 0,
-    fontSize: '18px',
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    textShadow: '0 1px 3px rgba(0,0,0,0.5)',
-  },
-};
-
-export default BoothListPage;
+export default BoothList;

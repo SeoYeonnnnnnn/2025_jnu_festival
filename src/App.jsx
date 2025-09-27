@@ -1,35 +1,39 @@
+// src/App.jsx
+
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom'; 
-import MapPage from './pages/MapPage';
+import { Routes, Route } from 'react-router-dom'; // 👈 BrowserRouter를 import하지 않음
 import HomePage from './pages/HomePage';
-import TimetablePage from './pages/TimetablePage';
-import NoticePage from './pages/NoticePage';
-import ContentSchedulePage from './pages/ContentSchedulePage.jsx';
-import FeedbackPage from './pages/FeedbackPage';
+import MapPage from './pages/MapPage';
 import BoothListPage from './pages/BoothListPage';
+import ContentSchedulePage from './pages/ContentSchedulePage';
+import TimeTablePage from './pages/TimeTablePage';
+import NoticePage from './pages/NoticePage';
+import SplashScreen from './components/SplashScreen';
 
-// ... (다른 import)
 function App() {
-  useEffect(() => {
-    console.log("✅ MapPage 컴포넌트가 마운트되었습니다. (최초 1번만 실행되어야 정상)");
+  const [isLoading, setIsLoading] = useState(true);
 
-    return () => {
-      console.error("❌ MapPage 컴포넌트가 파괴(언마운트)되었습니다! 이것이 문제입니다!");
-    };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
   return (
-    <div className="w-screen h-screen">
-      <Routes>
-        {/* Route 컴포넌트로 각 경로와 해당 경로에서 보여줄 컴포넌트를 지정*/}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/map" element={<MapPage />} /> 
-        <Route path="/booth-list" element={<BoothListPage/>} />
-        <Route path="/content" element={<ContentSchedulePage />} />*/\
-        <Route path="/timetable" element={<TimetablePage />} />
-        <Route path="/notice" element={<NoticePage />} />
-        <Route path="/feedback" element={<FeedbackPage />} />
-      </Routes>
-    </div>
+    // 👇 BrowserRouter가 제거된 것을 확인하세요.
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/map" element={<MapPage />} />
+      <Route path="/booth-list" element={<BoothListPage />} />
+      <Route path="/content" element={<ContentSchedulePage />} />
+      <Route path="/timetable" element={<TimeTablePage />} />
+      <Route path="/notice" element={<NoticePage />} />
+    </Routes>
   );
 }
 

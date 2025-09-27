@@ -91,20 +91,19 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
       });
 
       window.kakao.maps.event.addListener(kakaoMarker, 'click', () => {
-        const currentCenter = kakaoMap.getCenter();
-        const currentLevel = kakaoMap.getLevel();
-
-        if (activeOverlay) activeOverlay.setMap(null);
+        // 7. 인포윈도우/커스텀오버레이를 생성하고 설정하는 모든 로직을 제거합니다.
+        // const currentCenter = kakaoMap.getCenter();
+        // const currentLevel = kakaoMap.getLevel();
+        // if (activeOverlay) activeOverlay.setMap(null);
         onMarkerClick(data);
-        const content = `<div style="padding:5px 10px; background:white; border:1px solid #ccc; border-radius:8px; font-weight:bold;">${data.name}</div>`;
-        const customOverlay = new window.kakao.maps.CustomOverlay({
-          position: markerPosition, content: content, yAnchor: 2.2
-        });
-        customOverlay.setMap(kakaoMap);
-        setActiveOverlay(customOverlay);
-
-        kakaoMap.setCenter(currentCenter);
-        kakaoMap.setLevel(currentLevel);
+        // const content = `<div style="padding:5px 10px; background:white; border:1px solid #ccc; border-radius:8px; font-weight:bold;">${data.name}</div>`;
+        // const customOverlay = new window.kakao.maps.CustomOverlay({
+        //   position: markerPosition, content: content, yAnchor: 2.8
+        // });
+        // customOverlay.setMap(kakaoMap);
+        // setActiveOverlay(customOverlay); // 이 부분도 제거합니다.
+        // kakaoMap.setCenter(currentCenter);
+        // kakaoMap.setLevel(currentLevel);
       });
       
       kakaoMarker.setMap(kakaoMap);
@@ -115,7 +114,7 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
         const labelOverlay = new window.kakao.maps.CustomOverlay({
           position: markerPosition,
           content: labelContent,
-          yAnchor: 2,
+          yAnchor: 2.2,
           zIndex: 3
         });
         labelOverlay.setMap(kakaoMap);
