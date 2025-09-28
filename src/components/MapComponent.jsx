@@ -24,7 +24,7 @@ function MapComponent({ markers, categoryConfig, onMarkerClick, onZoomChange, is
     if (!isScriptLoaded || !mapContainer.current) return;
     const options = {
       center: new window.kakao.maps.LatLng(35.176833, 126.909100),
-      level: 2, minLevel: 1, maxLevel: 6,
+      level: 1, minLevel: 1, maxLevel: 6,
     };
     const newMap = new window.kakao.maps.Map(mapContainer.current, options);
     setKakaoMap(newMap);

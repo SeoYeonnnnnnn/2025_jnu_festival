@@ -4,8 +4,9 @@ export const CATEGORY_CONFIG = {
   // 대분류
   BOOTH: { key: "BOOTH", name: "부스" ,color: "#fd8a69",activeColor: "#FFFFFF", icon: "부스.png"},       
   CONTENTS: { key: "CONTENTS", name: "컨텐츠" ,color: "#ffcd4a",activeColor: "#FFFFFF" ,icon: "컨텐츠.png"}, 
-  STAGE: { key: "STAGE", name: "무대",color: "#7db249",activeColor: "#FFFFFF", icon: "무대.png"},      
-  SUPPORT: { key: "TABLE", name: "테이블존",color: "#1187cf",activeColor: "#FFFFFF",icon: "테이블.png" },   
+  STAGE: { key: "STAGE", name: "무대",color: "#7db249",activeColor: "#FFFFFF", icon: "무대.png"}, 
+  TABLE: { key: "TABLE", name: "테이블존", color: "#1187cf", activeColor: "#FFFFFF", icon: "테이블.png" },     
+  //SUPPORT: { key: "TABLE", name: "테이블존",color: "#1187cf",activeColor: "#FFFFFF",icon: "테이블.png" },   
 
 
   // 소분류
@@ -14,12 +15,13 @@ export const CATEGORY_CONFIG = {
   COMPANY_BOOTH: { name: "기업부스", parent: "BOOTH", icon: "빨강핀.png" ,size: [25, 25]},
   INSTITUTIONAL_BOOTH: { name: "기관부스", parent: "BOOTH", icon: "빨강핀.png",size: [25, 25] },
   FOOD_TRUCK: { name: "푸드트럭", parent: "BOOTH", icon: "빨강핀.png",size: [25, 25] },
-  SAFETY_BOOTH: { name: "안전관리부스", parent: "SUPPORT", icon: "빨강핀.png",size: [25, 25] },
+  MANAGEMENT_BOOTH: { name: "관리부스", parent: "BOOTH", icon: "빨강핀.png", size: [25, 25] },
 
   // --- 컨텐츠 그룹 ---
   POPUP_ZONE: { name: "굿즈 팝업존", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25],},
-  CONTENTS_ZONE: { name: "컨텐츠존", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25],},
-  STREET_KARAOKE: { name: "거리노래방", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25], },
+  CONTENTS_ZONE: { name: "민주마루 컨텐츠존", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25],},
+  LANTERN: { name: "'새기고, 염원하다'(연등)", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25],},
+  STREET_KARAOKE: { name: "'부르고, 즐기다'(거리노래방)", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25], },
   PHOTO_BOOTH: { name: "포토부스", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25], },
 
   // --- 무대 그룹 ---

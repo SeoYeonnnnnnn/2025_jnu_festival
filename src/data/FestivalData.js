@@ -5,21 +5,59 @@ export const FESTIVAL_DATA = [
   // --- 부스 ---
   {
     id: 1, type: "BOOTH", name: "부스존", description: "학생부스 목록 보러가기",
-    coordinates: [35.177237, 126.906417],
+    coordinates: [35.176998, 126.906719],
     mainCategory: "BOOTH", subCategory: "STUDENT_BOOTH",
     displayZoom: [1, 4], // 줌 레벨을 1-4로 통일합니다.
   },
+
   {
-    id: 4, type: "BOOTH", name: "푸드트럭/부스존", description: "푸드트럭 목록 보러가기",
+    id: 4, type: "BOOTH", name: "푸드트럭", description: "푸드트럭 목록 보러가기",
     coordinates: [35.174886, 126.907864],
     mainCategory: "BOOTH", subCategory: "FOOD_TRUCK",
     displayZoom: [1, 4],
   },
   {
-    id: 5, type: "BOOTH", name: "테이블존", description: "테이블존 목록 보러가기",
-    coordinates: [35.175537, 126.910425],
-    mainCategory: "TABLE", subCategory: "TABLE_ZONE", 
+    id: 4000, type: "BOOTH", name: "부스존", description: "푸드트럭 목록 보러가기",
+    coordinates: [35.175222, 126.909523],
+    mainCategory: "BOOTH", subCategory: "FOOD_TRUCK",
     displayZoom: [1, 4],
+  },
+
+  {
+    id: 5, type: "BOOTH", name: "테이블 존", description: "테이블존 목록 보러가기",
+    mainCategory: "TABLE", subCategory: "TABLE_ZONE",
+    displayZoom: [1, 4], coordinates: [35.175537, 126.910425],image:"테이블존.png"
+  },
+  { 
+    id: 501, // id는 다른 항목과 겹치지 않게 고유한 값으로 설정
+    type: "BOOTH", 
+    name: "후문 테이블존", 
+    mainCategory: "TABLE", 
+    subCategory: "TABLE_ZONE",scheduleText: "18:00~23:00", location: "후문 일대(용지 앞)",
+    image: "테이블존.png" // 상세 설명에 표시할 이미지
+  },
+  {
+    id: 24, type: "BOOTH", name: "다회용기 반납 부스", description: "부스 운영시간&다회용기 이용안내 보기",
+    mainCategory: "BOOTH", subCategory: "MANAGEMENT_BOOTH",scheduleText: "18:00~23:00", location: "용지관 앞",
+    displayZoom: [1, 4], coordinates: [35.175624, 126.910610],images:["다회용기1.png","다회용기2.png"],
+  },
+  {
+    id: 33, type: "BOOTH", name: "안전관리 부스&[모아주세용, 붙여봉세요]", description: "부스 운영시간&부스 컨텐츠[모아주세용, 붙여봉세요] 설명 보기",
+    coordinates: [35.176870, 126.907183], scheduleText: "9:00~18:00", location: "제1학생마루 앞",
+    mainCategory: "BOOTH", subCategory: "MANAGEMENT_BOOTH",
+    displayZoom: [1, 4],
+  },
+  {
+    id: 34, type: "BOOTH", name: "안전관리&부스관리", description: "부스 운영시간 보기",
+    coordinates: [35.175566, 126.910239],scheduleText: "9:00~23:00", location: "용지관 앞",
+    mainCategory: "BOOTH", subCategory: "MANAGEMENT_BOOTH",
+    displayZoom: [1, 4], 
+  },
+  {
+    id: 35, type: "BOOTH", name: "안전관리부스&통합상황실", description: "부스 운영시간 보기",
+    coordinates: [35.173826, 126.906907],scheduleText: "18:00~23:00", location: "대운동장 구령대 앞",
+    mainCategory: "BOOTH", subCategory: "MANAGEMENT_BOOTH",
+    displayZoom: [1, 4], 
   },
   // --- 컨텐츠 ---
   {
@@ -33,25 +71,38 @@ export const FESTIVAL_DATA = [
     displayZoom: [1, 4], coordinates: [35.176744, 126.907123],
   },
   {
+    id: 24, type: "BOOTH", name: "포토부스", description: "포토부스 목록 보러가기",
+    mainCategory: "CONTENTS", subCategory: "PHOTO_BOOTH",
+    displayZoom: [1, 4], coordinates: [35.175755, 126.907426],
+  },
+  {
     id: 22, type: "BOOTH", name: "민주마루 컨텐츠", description: "컨텐츠 목록 보러가기",
     mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE",
     displayZoom: [1, 4], coordinates: [35.175762, 126.907245],
   },
+  
   {
-    id: 23, type: "BOOTH", name: "거리노래방", description: "거리노래방 상세보기",
+    id: 23, type: "BOOTH", name: "'부르고, 즐기다'(거리노래방)", description: "",
     mainCategory: "CONTENTS", subCategory: "STREET_KARAOKE",
-    displayZoom: [1, 4], coordinates: [35.175648, 126.911916],
+    displayZoom: [1, 4], coordinates: [35.175916, 126.911932],images:["노래방1.png","노래방2.png","노래방3.png","노래방5.png","노래방6.png","노래방7.png"]
   },
+  {
+    id: 27, type: "BOOTH", name: "포토부스", description: "",
+    mainCategory: "CONTENTS", subCategory: "PHOTO_BOOTH",scheduleText: "상시운영",location: "제1학생마루 앞, 민주마루 앞",
+    displayZoom: [1, 4], coordinates: [35.175916, 126.911932],images:["노래방1.png","노래방2.png","노래방3.png","노래방5.png","노래방6.png","노래방7.png"]
+  },
+  
+  
   // --- 무대 ---
   {
-    id: 30, type: "BOOTH", name: "본 무대", description: "본 무대 상세보기",
-    mainCategory: "STAGE", subCategory: "MAIN_STAGE",
-    displayZoom: [1, 4], coordinates: [35.173987, 126.906248],
+    id: 30, type: "BOOTH", name: "본 무대", description: "전대존 안내사항",
+    mainCategory: "STAGE", subCategory: "MAIN_STAGE",scheduleText: "1일차 입장시간: 15:30 / 2일차 입장시간: 15:00",
+    displayZoom: [1, 4], coordinates: [35.173987, 126.906248],images:["입퇴장1.png","입퇴장2.png","입퇴장3.png","입퇴장4.png",],
   },
   {
     id: 31, type: "BOOTH", name: "팔찌 배부", description: "팔찌 배부 상세보기",
-    mainCategory: "STAGE", subCategory: "WRISTBAND_BOOTH",
-    displayZoom: [1, 4], coordinates: [35.174097, 126.907667],
+    mainCategory: "STAGE", subCategory: "WRISTBAND_BOOTH",scheduleText: "08:30~14:30",
+    displayZoom: [1, 4], coordinates: [35.174097, 126.907667],images:["전대존1.png","전대존2.png","전대존3.png","전대존5.png","전대존6.png","전대존7.png",],
   },
 
   // =========================================================
@@ -126,38 +177,40 @@ export const FESTIVAL_DATA = [
 
 
   // --- 컨텐츠 ---
-  { id: 201, type: "BOOTH", name: "굿즈 판매샵", description: "전룡이가 가득 담긴 특별한 굿즈들로 대동제의 기억을 간직해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "10:00~18:00", location: "용봉관 앞" },
-  { id: 202, type: "BOOTH", name: "슈링클스 키링 만들기", description: "나만의 캐릭터를 직접 그리고 세상에 하나뿐인 키링을 만들어보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "10:00~18:00", location: "용봉관 앞" },
-  { id: 203, type: "BOOTH", name: "유니폼 마킹 및 와펜", description: "와펜과 나만의 마킹의 조합으로  유니폼에 특별한 개성을 더해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE", scheduleText: "10:00~18:00", location: "용봉관 앞" },
-  { id: 204, type: "BOOTH", name: "전룡이 포토존", description: "전룡이에게 반가운 첫인사를 건네주세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "상시 운영", location: "용봉관 앞" },
-  { id: 205, type: "BOOTH", name: "'새기고, 염원하다'(연등)", description: "연등에 소원을 담아 환하게 빛내보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", scheduleText: "12:00~18:00", location: "용지관 앞" },
-  { id: 206, type: "BOOTH", name: "'만나고, 시작하다'(소개팅)", description: "두근거리는 대화 속에서 나와 잘 맞는 인연을 찾아보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", location: "민주마루 앞 잔디밭", scheduleText: "13:00~17:00" },
+  { id: 201, type: "BOOTH", name: "굿즈 판매샵", scheduleText: "10:00~18:00", location: "용봉관 앞",images:["굿즈1.png","굿즈2.png"], description: "전룡이가 가득 담긴 특별한 굿즈들로 대동제의 기억을 간직해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE"},
+  { id: 202, type: "BOOTH", name: "슈링클스 키링 만들기", scheduleText: "10:00~18:00", location: "용봉관 앞",images:["슈링클스1.png","슈링클스2.png"], description: "나만의 캐릭터를 직접 그리고 세상에 하나뿐인 키링을 만들어보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE" },
+  { id: 203, type: "BOOTH", name: "유니폼 마킹 및 와펜",scheduleText: "10:00~18:00", location: "용봉관 앞",images:["마킹1.png","마킹2.png","마킹3.png","마킹4.png","마킹5.png"], description: "와펜과 나만의 마킹의 조합으로  유니폼에 특별한 개성을 더해보세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE"},
+  { id: 204, type: "BOOTH", name: "전룡이 포토존",scheduleText: "10:00~18:00", location: "용봉관 앞",images:["포토존1.png","포토존2.png","포토존3.png"], description: "전룡이에게 반가운 첫인사를 건네주세요", mainCategory: "CONTENTS", subCategory: "POPUP_ZONE",  scheduleText: "상시 운영", location: "용봉관 앞" },
+  { id: 205, type: "BOOTH", name: "'새기고, 염원하다'(연등)'",scheduleText: "12:00~18:00", location: "용지관 앞",images:["연등1.png","연등2.png"], description: "연등에 소원을 담아 환하게 빛내보세요", mainCategory: "CONTENTS", subCategory: "LANTERN", scheduleText: "12:00~18:00", location: "용지관 앞" },
+  { id: 207, type: "BOOTH", name: "'건지고, 놓치다'(탱탱볼 건지기)",scheduleText: "11:00~17:00", location: "민주마루 앞",image:"건지고, 놓치다.png",description: "뜰채가 찢어지기 전까지 순발력을 발휘해 탱탱볼 건지기에 도전해보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", location: "민주마루 앞 잔디밭" },
+  { id: 208, type: "BOOTH", name: "'흐르고, 멈추다'(스톱워치 시간 맞추기)'",scheduleText: "11:00~17:00", location: "민주마루 앞",images:["흐르고, 멈추다1.png","흐르고, 멈추다2.png"], description: "짜릿한 시간 맞추기에 도전하고, 행운의 선물의 주인이 되어보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", location: "민주마루 앞 잔디밭"},
+  { id: 209, type: "BOOTH", name: "'떨어지고, 반응하다'(스틱잡기)",scheduleText: "11:00~17:00", location: "민주마루 앞", image:"떨어지고, 반응하다.png",description: "순발력과 집중력을 발휘하여 떨어지는 스틱을 잡고 상품을 쟁취하세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", location: "민주마루 앞 잔디밭" },
+  { id: 210, type: "BOOTH", name: "'칠하고, 물들이다'(베어브릭)'",scheduleText: "11:00~17:00", location: "민주마루 앞",images:["칠하고, 물들이다1.png","칠하고, 물들이다2.png","칠하고, 물들이다3.png"], description: "세상에 단 하나뿐인 나만의 베어브릭을 직접 만들어보세요", mainCategory: "CONTENTS", subCategory: "CONTENTS_ZONE", location: "민주마루 앞 잔디밭", scheduleText: "13:00~17:00" },
 
-  // --- 무대 ---
-  { id: 301, type: "BOOTH", name: "본 무대 상세", description: "1일차 입장 시간 |  15:30 / 2일차 입장 시간  15:00", mainCategory: "STAGE", subCategory: "MAIN_STAGE", location: "대운동장" },
-  { id: 302, type: "BOOTH", name: "팔찌 배부 상세", description: "팔찌 배부 시간 | 08:30~14:30", mainCategory: "STAGE", subCategory: "WRISTBAND_BOOTH", location: "풋살장", scheduleText: "08:30~14:30" },
-
+  
   // =========================================================
   // 3. 편의시설 (지도에 항상 표시)
   // =========================================================
-  { id: 401, type: "BOOTH", name: "화장실", coordinates: [35.177943, 126.906869], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
-  { id: 402, type: "BOOTH", name: "흡연구역", coordinates: [35.177102, 126.907520], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
+  { id: 401, type: "BOOTH", name: "화장실", coordinates: [35.177929, 126.906825], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
+  { id: 402, type: "BOOTH", name: "흡연구역", coordinates: [35.177116, 126.907474], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
   { id: 403, type: "BOOTH", name: "AED", coordinates: [35.176873, 126.907469], mainCategory: "SUPPORT", subCategory: "AED", displayZoom: [1, 4] },
   { id: 404, type: "BOOTH", name: "AED", coordinates: [35.175943, 126.908428], mainCategory: "SUPPORT", subCategory: "AED", displayZoom: [1, 4] },
-  { id: 405, type: "BOOTH", name: "쓰레기통", coordinates: [35.176591, 126.907093], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
-  { id: 406, type: "BOOTH", name: "쓰레기통", coordinates: [35.175675, 126.909054], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
-  { id: 407, type: "BOOTH", name: "쓰레기통", coordinates: [35.175252, 126.909430], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
-  { id: 408, type: "BOOTH", name: "쓰레기통", coordinates: [35.175700, 126.909839], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
-  { id: 409, type: "BOOTH", name: "쓰레기통", coordinates: [35.175697, 126.910881], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
-  { id: 410, type: "BOOTH", name: "흡연구역", coordinates: [35.175723, 126.909559], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
-  { id: 411, type: "BOOTH", name: "화장실", coordinates: [35.175377, 126.911057], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
-  { id: 412, type: "BOOTH", name: "흡연구역", coordinates: [35.175278, 126.911313], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
-  { id: 413, type: "BOOTH", name: "화장실", coordinates: [35.176088, 126.910373], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
-  { id: 414, type: "BOOTH", name: "화장실", coordinates: [35.176232, 126.909860], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
+  { id: 405, type: "BOOTH", name: "쓰레기통", coordinates: [35.175270, 126.909411], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
+  { id: 406, type: "BOOTH", name: "쓰레기통", coordinates: [35.175633, 126.909778], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
+  { id: 407, type: "BOOTH", name: "쓰레기통", coordinates: [35.175755, 126.910390], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
+  { id: 408, type: "BOOTH", name: "쓰레기통", coordinates: [35.175600, 126.911406], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
+  { id: 409, type: "BOOTH", name: "쓰레기통", coordinates: [35.176564, 126.907060 ], mainCategory: "SUPPORT", subCategory: "TRASH_CAN", displayZoom: [1, 4] },
+  { id: 410, type: "BOOTH", name: "흡연구역", coordinates: [35.176009, 126.910025], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
+  { id: 411, type: "BOOTH", name: "화장실", coordinates: [35.175885, 126.910234], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
+  { id: 412, type: "BOOTH", name: "흡연구역", coordinates: [35.175287, 126.911398], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
+  { id: 413, type: "BOOTH", name: "화장실", coordinates: [35.176388, 126.910153], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
+  { id: 414, type: "BOOTH", name: "화장실", coordinates: [35.175375, 126.911096], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
   { id: 415, type: "BOOTH", name: "AED", coordinates: [35.175465, 126.912078], mainCategory: "SUPPORT", subCategory: "AED", displayZoom: [1, 4] },
-  { id: 416, type: "BOOTH", name: "화장실", coordinates: [35.173761, 126.907212], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
-  { id: 417, type: "BOOTH", name: "화장실", coordinates: [35.172949, 126.906864], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
-  { id: 418, type: "BOOTH", name: "흡연구역", coordinates: [35.173037, 126.907619], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
+  { id: 416, type: "BOOTH", name: "화장실", coordinates: [35.173731, 126.907236], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
+  { id: 417, type: "BOOTH", name: "화장실", coordinates: [35.172897, 126.906889], mainCategory: "SUPPORT", subCategory: "RESTROOM", displayZoom: [1, 4] },
+  { id: 418, type: "BOOTH", name: "흡연구역", coordinates: [35.173055, 126.907089], mainCategory: "SUPPORT", subCategory: "SMOKING_AREA", displayZoom: [1, 4] },
   { id: 419, type: "BOOTH", name: "AED", coordinates: [35.174188, 126.906072], mainCategory: "SUPPORT", subCategory: "AED", displayZoom: [1, 4] },
+  { id: 419, type: "BOOTH", name: "AED", coordinates: [35.174029, 126.907274], mainCategory: "SUPPORT", subCategory: "AED", displayZoom: [1, 4] },
+
 ];
 
