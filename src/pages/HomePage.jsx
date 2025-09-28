@@ -70,7 +70,7 @@ export default function HomePage() {
       </div>
 
       {/* 하단 플로팅 네비게이션 바 (하버 애니메이션은 그대로 유지) */}
-      <footer className="fixed bottom-0 left-0 right-0 z-20 h-24">
+      <footer className="fixed bottom-5 left-0 right-0 z-20 h-24">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-28 bg-gradient-to-t from-black/20 to-transparent blur-lg"></div>
         
         <div className="relative max-w-md mx-auto h-full flex justify-around items-center px-4">
