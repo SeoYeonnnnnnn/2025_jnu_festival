@@ -57,7 +57,7 @@ function ContentSchedulePage() {
         <div className="max-w-xl mx-auto px-4 pb-20 pt-20">
           <div className="text-center mb-12 animate-fade-in-up">
             <h1 className="text-4xl font-extrabold text-white tracking-tight">
-              용봉대동풀이 콘텐츠
+              龍飛鳳舞(용비봉무) 콘텐츠
             </h1>
             <p className="mt-3 text-lg text-white/70">
               다채로운 즐거움이 가득한 축제에 여러분을 초대합니다.

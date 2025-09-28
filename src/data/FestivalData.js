@@ -44,7 +44,7 @@ export const FESTIVAL_DATA = [
   {
     id: 33, type: "BOOTH", name: "안전관리 부스&[모아주세용, 붙여봉세요]", description: "부스 운영시간&부스 컨텐츠[모아주세용, 붙여봉세요] 설명 보기",
     coordinates: [35.176870, 126.907183], scheduleText: "9:00~18:00", location: "제1학생마루 앞",
-    mainCategory: "BOOTH", subCategory: "MANAGEMENT_BOOTH",
+    mainCategory: "BOOTH", subCategory: "MANAGEMENT_BOOTH",images:["부컨1.png","부컨2.png","부컨3.png","부컨4.png",],
     displayZoom: [1, 4],
   },
   {

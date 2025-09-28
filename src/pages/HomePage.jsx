@@ -41,44 +41,35 @@ export default function HomePage() {
   return (
     <div className="w-full h-screen relative overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center "
         style={{ backgroundImage: `url(/assets/배경.png)` }}
       />
       <div className="absolute inset-0 bg-black/30" />
 
-      <style>{`
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-      `}</style>
+      {/* ▼▼▼ [수정] 불필요한 애니메이션 스타일 제거 ▼▼▼ */}
+      {/* <style>{` ... `}</style> */}
 
       {/* 로고 및 콘텐츠 영역 */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 pb-32">
+      <div className="relative z-10 flex flex-col items-center justify-end h-full text-center px-4 pb-40">
+        {/* ▼▼▼ [수정] animate-fade-in-up 클래스 및 style 속성 제거 ▼▼▼ */}
         <img
           src="/assets/로고.png"
           alt="용비봉무 로고"
-          className="w-56 md:w-72 object-contain animate-fade-in-up"
-          style={{ animationDelay: '0.2s' }}
+          className="w-56 md:w-72 object-contain"
         />
         <p 
-          className="text-white text-3xl md:text-4xl mt-4 font-black tracking-tight animate-fade-in-up"
-          style={{ animationDelay: '0.4s' }}
+          className="text-white text-3xl md:text-4xl mt-4 font-black tracking-tight"
         >
           2025 전남대학교 대동제 PRASINO '龍飛鳳舞'
         </p>
           <p 
-            className="text-white/80 text-lg mt-2 font-light animate-fade-in-up"
-            style={{ animationDelay: '0.6s' }}
+            className="text-white/80 text-lg mt-2 font-light"
           >
-          2025. 09. 29. (월)~2025. 09. 30. (화)
+          2025. 09. 29. (월) ~ 2025. 09. 30. (화)
         </p>
       </div>
 
-      {/* 하단 플로팅 네비게이션 바 */}
+      {/* 하단 플로팅 네비게이션 바 (하버 애니메이션은 그대로 유지) */}
       <footer className="fixed bottom-0 left-0 right-0 z-20 h-24">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md h-28 bg-gradient-to-t from-black/20 to-transparent blur-lg"></div>
         
@@ -87,7 +78,6 @@ export default function HomePage() {
             const isCenter = index === 2;
 
             if (isCenter) {
-              // 가운데 큰 버튼 (지도)
               return (
                 <Link
                   to={link}
@@ -100,7 +90,6 @@ export default function HomePage() {
                 </Link>
               );
             } else {
-              // ✅ 수정된 양 옆의 작은 버튼들
               return (
                 <Link
                   to={link}
@@ -111,7 +100,7 @@ export default function HomePage() {
                 >
                   <div className="flex flex-col items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full transition-all transform group-hover:-translate-y-2 group-hover:bg-white/20">
                     <Icon className="text-white/80 text-2xl group-hover:text-white transition-colors" />
-                    <span className="text-white/80 text-xs mt-1 group-hover:text-white transition-colors">{title}</span>
+                    <span className="text-white/80 text-xs group-hover:text-white transition-colors">{title}</span>
                   </div>
                 </Link>
               );

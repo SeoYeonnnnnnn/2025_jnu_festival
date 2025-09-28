@@ -61,16 +61,6 @@ export default function ContentDetailPage() {
                     {/* ⭐️ 투명 카드형 레이아웃 적용 */}
                     <div className="bg-white/5 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
                         
-                        {/* 이미지 섹션 */}
-                        {imageList.length > 0 ? (
-                            <div className="w-full h-48 overflow-hidden">
-                                <img src={`/assets/${imageList[0]}`} alt={event.title} className="w-full h-full object-cover" />
-                            </div>
-                        ) : (
-                            <div className="w-full h-48 bg-gray-700 flex items-center justify-center text-white/50 text-lg font-bold">
-                                이미지 준비 중
-                            </div>
-                        )}
                         
                         <div className="p-6">
                             <h1 className="text-3xl font-bold text-white mb-1">{event.title}</h1>
