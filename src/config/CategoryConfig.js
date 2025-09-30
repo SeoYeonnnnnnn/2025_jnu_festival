@@ -25,7 +25,7 @@ export const CATEGORY_CONFIG = {
   PHOTO_BOOTH: { name: "포토부스", parent: "CONTENTS",icon: "노랑핀.png" ,size: [25, 25], },
 
   // --- 무대 그룹 ---
-  MAIN_STAGE: { name: "본무대", parent: "STAGE", icon: "초록핀.png",size: [25, 25], },
+  MAIN_STAGE: { name: "본무대", parent: "STAGE", icon: "초록핀.png",size: [25, 25],description:"" },
   WRISTBAND_BOOTH: { name: "팔찌 배부처", parent: "STAGE", icon: "초록핀.png",size: [25, 25],label: "전대존 입장 방법 보러가기" },
 
   // ---테이블존 ---
